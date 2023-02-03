@@ -1,0 +1,204 @@
+Conditionals
+
+    Conditional statments allow us to run certain lines of code depending on whether certain conditions are met. Theaes statements contorl the flow of how our code is exectued by the interpreter. In python the keywords for conditoinal statments are if, elif, and else 
+
+        x = 12
+        if x > 50:
+            print("bigger than 50")
+        else:
+            print("smaller than 50")
+        # because x is not greater than 50, the second print statement is the only one that will execute
+        
+        x = 55
+        if x > 10:
+            print("bigger than 10")
+        elif x > 50:
+            print("bigger than 50")
+        else:
+            print("smaller than 10")
+        # even though x is greater than 10 and 50, the first true statement is the only one that will execute, so we will only see 'bigger than 10'
+        
+        if x < 10:
+            print("smaller than 10")
+        # nothing happens, because the statement is false   
+
+
+Comparason And Logic Operators
+
+    == checks if the value of two operands are equal 
+    != checks if the value of two operands are not equal 
+    > checks if the value of the left operand is greater than the value of the right operand
+    < Checks if the value of the left operand is less than the value of the right operand
+    >= Checks if the value of the left operand is greater than or equal to the value of the right operand 
+    <= checks if the value of the left operand is less than or equal to the value of the right operand
+    and Checks that each expression on the left and the right are both true
+    or Checks if either the xpressoin on the left or the right is true
+    not Reverses the true-false value of the operand 
+
+
+
+
+Loops
+
+    For Loops with range()
+
+        We can use Pythons range function in conjunction with python for loops to repeate the same code may times over with a number, usually refered to as I that represents an interger that changes, this is similar to for loops in other languages but the syntax is a bit diffrent. the Range() function can have between 1 and 3 arguments and creates a sequence of intergers called a range object. we primilary use this for creaitng lupes that have a defined starting point and stopping point for a sequence of intergers. (list dictonary etc.)
+
+    Three ways to use range() in a for loops
+
+        Only one argument
+
+            for i in range(5): 
+                print(i)
+
+        I starts at 0 by default, when there is only one number in the argument for range it will be where the loop exits the function. the loop will exit when i is 5, it will print up to 5 but not 5 its self, i increases by 1 by default
+
+        Two arguments
+
+            for i in range(2, 7):
+            print(i) 
+
+        I start at 2 the first number when there are two numbers represents the starting number of the function in this case the print function. so I will start printing at 2, and will exit when i is equal to seven so it will print six, and it will increase by 1 by default. 
+
+        Three arguments
+
+            for i in range(2, 16, 3):
+                print(i)
+
+        I starts at 2 just like previously, it will now stop when i is equal to 16, so printing up to 15, butt this time due to the third argument being introduced it will now increase by 3, 
+        -Note- if you want to increase by any number than the default +1 then you will have to include the start and stop arguments. 
+
+        You may also count down usuing a negative value 
+
+        ex
+            for x in range(0, 10, 2):
+                print(x)
+            # output: 0, 2, 4, 6, 8
+            for x in range(5, 1, -3):
+                print(x)
+            # output: 5, 2
+
+    More Documentation on range
+        https://docs.python.org/3/library/stdtypes.html#typesseq-range
+
+
+
+Looping Over Lists & Strings
+    
+    For Loops Through Strings
+        Since a loop can be used on any sequence, you can access each value of astring with a loop 
+            for x in 'Hello':
+                print(x)
+    This will print each letter in Hello
+
+
+    For loops through lists
+        if we want to iterate through a list, we could use the range function and send in the length of the list as the stopping value, but if we are not intersted in the inex values and want to just see the values of each item in the list in order we can actually loop to get the values of the list directley, 
+
+        ex
+            my_list = ["abc", 123, "xyz"]
+            for i in range(0, len(my_list)):
+                print(i, my_list[i])
+            # output: 0 abc, 1 123, 2 xyz
+                
+            # OR 
+                
+            for v in my_list:
+                print(v)
+            # output: abc, 123, xyz
+
+    So what i can tell because this one is a bit confusing, to print the integer of the list, so figured out why its confusing to include the actual index as well as the value you must have both the i and the my list[i] in order to have both the index and the value of the list. if you just supply the I or in the second one the V it will only print the values not the index value, you must have both from what i can tell to print both. not really sure why. 
+
+
+    While Loops
+
+        While loops are another way of looping while a certain condition is true.
+            this loop
+                for count in range(0,5):
+                    print("looping - ", count)
+        
+        can be rewritten as a while loop like so
+            while loop
+                count = 0 
+                while count <= 5:
+                    print ("looping -", count)
+                    count += 1
+
+        
+        the basic syntax for a while loop looks like this:
+            while <expression>:
+                do something, including progressing twoards making the expression false, otherwise the loop will never exit
+
+
+        Else
+            There are certain conditoins that we give for every loop that we have, but what happens if the conditoin was not met and we still would like to do something if that happens??? We can then use an else statment with our while loop. 
+
+            ex
+
+                y = 3
+                while y > 0:
+                    print(y)
+                    y = y - 1
+                else:
+                    print("Final else statement")
+                    output 3 2 1 Final Else statment
+
+        Note that this else code section is only executed while the while loop runs normally, so as long as y is greater than 0 then the loop will print y, once its false then it will change to the else statment. once that condition is false ex y is no longer greater than 0 it will exit the loop, if the loop is exited prematurley because of a break or return statment, then the else code section will never be executed. 
+
+        Loop Control 
+
+            We were introduced to control flow in the previous statments with if and else statments, Loops, breaks and continues are all a part of control flow as well. Control flow is the cornerstone of most programming languages
+            
+            when you want finer control over your loops yo uwill use the following statments to do so
+        
+        Break
+
+            The break statement exits the current loop prematurely, resuming execution at the first post loop statement. the break statement can be used in both while and for loops. 
+
+            the most common use for the break is when some xtermal conditoin is triggered, requring a hasty exit from a loop. 
+
+            when loops are nested, a break will only exit from the innermost loop. 
+
+            ex
+                for val in "string":
+                    if val == "i":
+                        break
+                    print(val)
+                # output: s, t, r
+
+            So whats happening here, we have an if statment that says if the val in string is equal to the letter i, then break, outside of that if statment is print val, so the output will be every letter up until i becaues once it hits i it will break out of the for loop. 
+
+        
+        Continue
+
+            The continue statment immediatley returns control to the beggining of the loop. in other workds the continue statment rejects or skips all the remaning statments in the current iteration of the loop and continues normal execution at the top of the loop. so, it skips the remaning code once it hits a continue and then goes back to the top of the code and conintues normal execution at the top of the code. its used to skip a certain part of an iteration through a code. but still want to keep moving through the code.
+
+            ex
+                for val in "string":
+                    if val == "i":
+                        continue
+                    print(val)
+                # output: s, t, r, n, g
+                # notice, no i in the output, but the loop continued after the i
+
+            So here it says when the val equals i then skip the printing, the I will be skipped because theres a continue statment. 
+
+            ex
+                y = 3
+                while y > 0:
+                    print(y)
+                    y = y - 1
+                    if y == 0:
+                        break
+                else:		# only executes on a clean exit from the while loop (i.e. not a break)
+                print("Final else statement")
+                # output: 3, 2, 1
+
+            The else statment will never be reached because y == 0 before the else statment is reached. 
+
+
+
+
+
+
+

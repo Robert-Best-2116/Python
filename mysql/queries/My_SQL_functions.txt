@@ -1,0 +1,185 @@
+MySQL Functions
+
+    Select Basics
+        
+        Queries run to select all users
+            SELECT * FROM users;
+
+        Query to get a specific column from a table,
+            SELECT column_name FROM users;
+
+        Query to get multiple columns from a table, 
+            SELECT column_name, column_name FROM users;
+
+    Select With Conditionals
+
+        Query to get only the first name of users with id of 2
+            SELECT first_name FROM users WHERE id = 2;
+
+        Query to get last name of users with id of 3 or 3
+            SELECT last_name FROM users WHERE id = 2 or 3;
+
+        Query to select users with id greater than 2
+            SELECT * FROM users WHERE id <= 2;
+
+        Query to select users with id lesser than or equal to 3
+            SELECT * FROM users WHERE id <= 3;
+
+        Query to select users with first name ending in e 
+            SELECT * FROM users WHERE first_name LIKE "%e"; 
+
+        Query to selct users with first names starting with k
+            SELECT * FROM users WHERE first_name LIKE "k%";
+
+        Query to select all users with first names not starting in k
+            SELECT * FROM users WHERE first_name NOT LIKE "k%"
+
+
+    SELECT with Sorting
+
+        Query to sort users by birthday with the youngest at the top 
+            SELECT * FROM users ORDER BY birthday DESC;
+
+        Query to sort users by birthday with the oldest at the top
+            SELECT * FROM users ORDER BY birthday ASC; 
+
+        Query to selct users with the first name that ends with "e" sorted by youngest at the top
+            SELECT * FROM users WHERE first_name like "%e" ORDER BY birthday DESC;
+
+        Query to sort users by the first name in alphabetical ORDER
+            SELECT first_name FROM users ORDER BY first_name;
+
+            -Note- the default for order by is ascending, so we can leave that part out if we want the order to be ascending 
+
+    
+    Select with limit and offset
+
+        Query to select the first three users
+            SELECT * FROM users LIMIT 3;
+
+        Query to select user records from users 3-5 
+            SELECT * FROM users LIMIT 3 OFFSET 2;
+
+        Combine LIMIT and OFFSET 
+            SELECT * FROM users LIMIT 2,3;
+
+
+SQL ZOO Tutorials 
+
+    Basics
+        Where examples, WHERE for selection of a certain selection inside of a column inside table population
+        SELECT population FROM world WHERE name = 'Germany'
+
+        For checking a list the word IN will tell us to check if an item is in a list this example shows the name and population for selected countires 
+            SELECT name, population FROM world WHERE name IN ('Sweden', 'Norway', 'Denmark');
+
+        For checking range between certain numbers we use the word BETWEEN and AND to set the boundries
+            SELECT name, area FROM world WHERE area BETWEEN 200000 AND 250000
+
+    
+    Pattern Matching Strings
+        WHERE and LIKE 'B%' to find countires that start with the letter B the % is a wild card that can match any characters
+            SELECT name FROM world WHERE name LIKE 'B%'
+
+        Conversely you can put the letter on the other side of the % to get results that end with Y 
+            SELECT name FROM world WHERE name LIKE '%Y'
+
+        You can also see if a word has the letters inside of it by placing the letter inside of two %%
+            SELECT name FROM world WHERE name LIKE '%x%'
+
+        You can also see if a word has the first and last letters your looking for like so
+            SELECT name FROM world WHERE name LIKE 'C%ia'
+
+        You can check for multiple letters the same or diffrent by nesting % inside of the query between the letters
+            SELECT name FROM world WHERE name LIKE '%a%a%a%'
+
+        You can also use _ as a placeholder in the query search as a wild card when doing a search to find the second or other letters
+            SELECT name FROM world WHERE name LIKE '_n%' ORDER BY name
+
+        you can also use the _ in combonation with closing %
+            SELECT name FROM world WHERE name LIKE '%o__o%'  tis a cool face
+
+        you can use the _ with no % to find words of just a certain length
+            SELECT name FROM world WHERE name LIKE '____'
+
+    Was alot of fun but finish later
+
+
+
+
+INSERT 
+    We can insert data into tables two ways, we can manipulate the table directely usuing our MySQL workbench and another way is to run direct SQL commands into the editor, 
+
+        SQL commands
+            INSERT INTO table_name (column_name1, column_name2) 
+            VALUES('column1_value', 'column2_value');
+
+        -Note- the number of inserts and tables must be equal 
+
+
+UPDATE Basics 
+    We can update our database in two way as well, we can use the GUI to update the table, or we can use the SQL commands
+
+        SQL commands
+            UPDATE table_name
+            SET column1 = value1, column2 = value2, ...
+            WHERE condition;
+
+        -Note- If WHERE condtion is not added to the update statment, the changes wil lbe applied to EVERY record in the table, we dont want that. 
+
+
+DELETE 
+
+    If you are getting an error regarding SQL SAFE UPDATES, run the following command to let the work bench know that you know what your doing and that you want to delete stuff from the database 
+
+        SET SQL_SAFE_UPDATES = 0;
+
+        SQL commands
+            DELETE FROM table_name WHERE condition;
+
+    -Note-DO NOT FORGET TO PUT THE CONDITIONS (ie location of where you want to delete shit) if you do not EVEYTHING will go bye bye
+
+
+
+Functions
+
+    Functions can be applied to the selected columns, there is no sence in memorizing all of them as its a giant list, rather be able to search for what your looking for and go from there. the syntax for usuing a function is as follows
+
+        SELECT FUNCTION_NAME/SYMBOLS (column) FROM table_name
+
+
+
+Joining tables
+
+    Foreign keys are used to join tables togethers, usuing their IDs you can only join tables together that have a relationship, 
+
+    One to one join 
+        SELECT * FROM customers JOIN address on addresses.id = customers.addresses_id;
+
+    One to many
+        SELECT * FROM orders JOIN customers on customers.id = orders.customer_id
+
+    Many to many
+        the only one where the syntax is diffrent
+            SELECT * FROM orders JOIN items_orders ON orders.ID = items_orders.order_id
+            JOIN items ON items.id = items_orders.item_id;
+
+    
+    Thease examples are usuing a join also konwn as an inner join by default, however there are times when a diffrent join is appropreate, depending on the information we want back. 
+
+
+Grouping results
+    We can use functions to manipulate a single value in a single row with troup by, it groups multiple rows togethers by usuinga function to combine the values of those rows, this results in a single result for the group, it will combine all rows into a single result row
+
+    this is done by usuing grouping functions or aggreate functions.
+
+
+Nested Queries
+    documentation
+        https://sqlzoo.net/wiki/SELECT_within_SELECT_Tutorial 
+
+
+
+Export database 
+    Click on server tab, click data export, export to self contained file, change location, click include create schema, click the schema you want to export, click start export, finished. 
+

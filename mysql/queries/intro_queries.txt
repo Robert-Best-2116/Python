@@ -1,0 +1,9 @@
+
+
+Intro to SQL 
+
+    For any relational dtabase like my sQL you will interact with it usuing SQL in the previous hapter we leanred how to designe a schema for our data, we set up the collections that we needed and we set up the relationships among tables, now we will see the importance of relationships and how to use SQL to adjust the data in a way that we can imagine. SQL stands for strucutred Query Language, which is a programming langauge designed for mangaging data in relatinal databases, SQL statmements also known as Queries are used to perform tasks, they can select data, select dtat where some conditons are true, insert data, update data, delete data, and join diffrent tables together, as we go over all of the basics SQL commands be paitenti will be learninga domain-specififc language, unrelated to languages ive already seen, howeever masting SQL is the key to mastering the database componet o fyour application.
+
+
+Database and SQL, the SQL server on our operating is what we will use to first connect to MyQL workbench and later in our web applications, this will be a databaes server which will be listintg for connections on local host, our webservers that we will use later will also be listing out localhost, jut like our webservers the sql server will be assigned a port number.
+

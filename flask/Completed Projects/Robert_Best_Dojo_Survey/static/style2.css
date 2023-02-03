@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 50px;
+    padding-top: 15px;
+    padding-left: 15px;
+    width: 300px;
+    height: 350px;
+    display: block;
+    background-color: darkgray;
+    color: darkred;
+    text-decoration: underline;
+}
+
+h3 {
+    margin-top: 15px;
+    margin-left: 25px;
+    color:white;
+    font-style: italic;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+}

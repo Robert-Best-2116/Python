@@ -1,0 +1,8 @@
+print (key, "\t\t", row[key]) 
+
+
+youtubers with high level understandings
+
+https://www.youtube.com/c/BenEater/playlists
+
+https://www.youtube.com/c/NetworkChuck/videos

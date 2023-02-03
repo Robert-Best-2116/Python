@@ -1,0 +1,122 @@
+Lists Overview
+    A list is also known as an array i nothe rprogramming languages, its a data type tha talows yo uto hold groups of values, like a dresser with multiple drawers. lists are created with with values inside ofa square bracket, [] where each value is seperated by a comma, after a list is created it can still be updated by adding or deleting values, an empty list is simply [] 
+
+    in python the elements of a list do not have to be of the same data type, a list can be a mixture of any python data ttype ex truples strings, numbers, dictionaries or nested lists. 
+
+    You can combine lists together and duplicate them fairly easy by usuing the + or the * operators, if oyu add lists together it wil lcreate a new lists that contains the values of both of the arrays, likewise of you multiply a list by a whole number it will copy all of hte values that many times and make a new list with all the copied values
+    
+
+        ex
+            fruits = ['apple', 'banana', 'orange', 'strawberry']
+            vegetables = ['lettuce', 'cucumber', 'carrots']
+            fruits_and_vegetables = fruits + vegetables
+            print(fruits_and_vegetables)
+            salad = 3 * vegetables
+            print(salad)
+
+
+List Manipulation
+
+    Back to the dresser anaolgy, imagine tha teach drawer is a numberd string starting with 0, say the first drawer (index of 0) has 'documents' inside of it, the second drawer (index1) has 'envelopes' inside, and so on, each drawer is assigned a number also known as an index, which serves as the unique address that points to each of our tiems inside of the drawer, you can access the indexes like so
+
+        print(drawers[0]) 
+
+        you can assign variables to value of an index like so
+
+        top_contents = drawers[0]
+
+        you can also reasign the value of an index like so
+
+        drawers[0] = "new_value"
+
+        or you can asign the values to be something else inside of the index like so
+
+        drawers[0] = drawers[1]
+
+    
+    When dealing with code such as arrays and lists its important to have a good understanding of what part of a statment gets read and evaluated by the interpreter, before it can be executred, whenever an indexed value in a list is on the right side of of the = (which is the assigment operator) the interpreter has to go fetch that raw value ("value") from the memory, the left hand side is indicated the location in memory only. (list name) 
+
+    it is wise when your reading or writing code to get  into the habit of identifiying which parts of the code will need to be boiled down to get a raw value before the line gets executed, once you get the hang of it it will become second nature and make your debuggin skills magnitudes better 
+
+
+Appending values to a list
+
+    another useful method that we use to minpulate lists is append!!!
+        list_name.append(new_value)
+
+    Append addds a new item onto the end of the given list, and can be used with any data type 
+
+
+Slicing!! sounds fancy
+
+    Slicing uses the following syntax [:] to return a copy of some portion of the list, the parts returned are constrainced by specifiying the parts of the indexs you want to start and end at. its usefull if you want to use a copy of the list so you dont have to change the origina. or just use a portion of the list. 
+
+    the significance of the [:] is to indicate where you want to start and end with the index, the starting portion of the index is indicated before the colon, the ending is indicated after the colon,
+    -Note-With the ending index it will stop before once the index is reached it will not however print or use that index, if there is no number provided in either the starting or ending syntax, then the code will either start at index of 0 or end at the last index, including the end index.  
+
+        [starting index : ending index ]
+        Remember indexes start with zero 0
+
+    Additional reading on common python sequence operations
+        https://docs.python.org/3/library/stdtypes.html#common-sequence-operations
+
+
+Built in functions for lists!!!
+
+    Python has many functions for lists, which is also a sequence, a sequence a sequence is anything which can be iterated over. to use the built in python functions we need to provide the name of the list/dictonary/tuple/string, 
+
+    ex
+        function(sequence_name) sequences are list/dictonary/tuple/string
+
+    len(sequence) = returns the length ex the number of items in a sequence
+    max(sequence) = returns the highest value in a sequence
+    min(sequenee) = returns the lowest value in a sequence
+    sorted(sequence) = returns a sorted sequence
+
+    other built in functions for sequences. 
+        https://docs.python.org/3.8/library/functions.html
+
+
+List-Specific Methods
+
+    some built in methods are spesific to lists. Thus they can only be used with lists, but not other data types, inorder to use built in lists methods you must use dot-notiaton with an existing list. like so
+
+        list_name.method()
+
+    Commonly used list methods
+    
+        list_name.append(value to be added) adds a value to the end of the list
+        list_name.pop(index to be removed) removes the value at the given index, if no paramater is passed(no spesific index) it will instead remove the last value in the index 
+        list_name.index(value) returns the position of the index of the given value if it exists in the list and raises an error if it does not exist. 
+        list.reverse() reveresers the order of the elements in the array, it does not create a new array
+        list.sort() sorts the items in order of least to greatest or alphabetically for strings, it also does not create a new array but uses the same array. 
+
+        
+    Additonal Documentation on built in list functions 
+        https://docs.python.org/3/tutorial/datastructures.html
+
+
+
+Tuples 
+    A tuple is a container for a fixed sequence of data objects. the name comes from the latin suffix (end of the world) for multiples, tuples are sequences just like lists, the only diffrence is that tuples cant be changed, that is tuples are immutable. also while lists are defined usuing square brackets tuples use parentheses, creating a tuple is fairly straight foward. you can either use commas to seperate the values, or you can use () 
+
+    ex
+        tuple_data = ('physics', 'chemistry', 1997, 2000)
+        tuple_num = (1, 2, 3, 4, 5 )
+        tuple_letters = "a", "b", "c", "d"
+
+
+
+    A tuple can be used to group any number of items into a single compound value, a tuple is a comma seperated sequence of values in plain english its a list that can be defined with just commas instead of () as long as the string values are in quotations when doing so. 
+
+    ex
+
+        dog = ("Canis Familiaris", "dog", "carnivore", 12)
+
+
+    As I evolve as a programmer i will see that tuples can be extremly useful. while i wont be creatin gor utiizing tuples alot in thi scourse i will encounter them in flask, they are usef by the framework for immutable ( unchangeable) dictonaries among other things, i will probabley also run into some baffiling logical errors that have to do with tuples. for example if i type in a comma at the end of a line of code that assigns a variable to a value there wont be an error but it will be interpret the stored value as a tuple. provided that its not already in brackets for a list of {} for a ditonary 
+
+    The only other object that uses () inside of it is a function call, the begging of a list of an arguments for a function or the definietion of a function, 
+
+        Addtional Documentation
+            https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences

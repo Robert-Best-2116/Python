@@ -1,0 +1,15 @@
+@classmethod
+def get_by_id(cls, user_id):
+ here we are creatting the class method to get a users information by their id, we are passing in the user id argument and the class method
+ data = {"id" : user_id} passing in the id so that it can be used by the variable data
+ query = "select * from users where id = %(id)s;" selecting the user from the database by the provided id
+ result = connecttomysql(database).query_db(query,data) 
+
+ if len(result) < 1: 
+ return false so if the query dosent return a result then their is no user with that id in the database
+ return cls(result[0])
+  if it does work then submit the information 
+
+  class method 
+
+  def authetiacated user by input 

@@ -1,0 +1,116 @@
+Functions
+
+    A function is a named block of code that we can executed to perform a specified task. more simply a function is a list of instructions that we can run at any time and as many times as we would like, if we find something that we seem to be usuing over and over again, it might be best to have a way to streamline the process. 
+
+    Componets on a function
+        Functions have names
+        Functions take in parameters the () are required but parameters are not
+        functions perform a series of instructions
+        functions will return something afterwards but not if there isnt a return statment, if there isnt a return statment it will return none
+
+    Ususing a function
+        Spesify the variables needed for the function
+        Pass in the arguements when you invoke the function
+        The function follows the instructions step by step, usuing the paramaters 
+        then the results are returned
+
+    The advantages of usuing a functions are 
+        Reduces the duplication of the code
+        breaking down complex problems into simpler pieces
+        improves the clarity of code
+
+    
+
+Syntax
+
+    The def keyword signifies the declaration of a function, this indicates that the following code is a function and assigns a name to that function, so we can call it later, Parameter are inputs the function is expecting, and appear inside the parenthesis that follow the function name 
+
+    ex
+        def add(a,b):	# function name: 'add', parameters: a and b
+            x = a + b	# process
+            return x	# return value: x
+
+
+    We have declared a function with the def keyword, named it add and specififed that it takes two inputs (parameters), if this is all we have in our file, nothing would actually appear to happen if we ran it. To actually run the function we must executed it by invoking or calling it, this is done outside of the function usuing the function name followed by () inside the parenthesis are any values (arguments) the function is expecting as input (so what the function needs to operate is inside the parenthesis)
+
+
+    the following example usues a variable holding the function add from above to work. 
+
+        new_val = add(3, 5)    # calling the add function, with arguments 3 and 5
+        print(new_val)    # the result of the add function gets sent back to and saved into new_val, so we will see 8
+
+    Once invoked a function can give us an output, some functions take an input and some functions dont give us an output. Even if no output is prodiced the code inside the function can alter the program, this is called a side effect, based upon what we learned above, a function that dosent return anything would produce no output. 
+
+
+Parameters and Arguments
+
+    We define the input of functions usuing parameters. functions can hve as many parameters as we need, including 0. here weve defined the say_hi function with one parameter called name:
+
+        def say_hi(name):
+            print("Hi, " + name)
+
+    Now we can invoke this function by calling its name and passing in the correct number of arguments
+
+        # invoking the function 3 times, passing in one argument each time
+        say_hi('Michael')
+        say_hi('Anna')
+        say_hi('Eli')
+
+    What is the diffrence between a parameter and an argument?? in this example, name is a parameter while michael, anna and eli are arguments, we define parameters and we pass in arguments into functions 
+
+
+Returning Values
+
+    So far none of our functions had any value that we could hold onto. in many cases we would want our function to return some sort of value that we can use later in our program. the following concept is critical in understanding how to use functions correctly in your code. it is very important to remembe rthe following, a function call is equal to whatever that function returns. 
+
+    lets modify our original say_hi function and observe the diffrences
+        def say_hi(name):
+            return "Hi " + name
+        greeting = say_hi("Michael") # the returned value from say_hi function gets assigned to the 'greeting' variable
+        print(greeting) # this will output 'Hi Michael'
+
+    Returning a value from a function allows us to store that value in a variable, you can also have strings come after the return, along with the variable, in this example we invoked the say_hi function with the vairaible "michael" and set it to the greeting variable, when we print greeting, we see that it contains the returned value of the say_hi function - "hi Michael"
+
+    Functions can return values of diffrent data types, they can return any of the data types, strings numbers lists tuples dictionarys and even other functions. 
+
+
+Return-Other uses 
+
+    there is often common confusion between the diffrence between a print statment and a return statment, there are two major diffrences
+        1 Saving values: when you print something with the print() function strictly speaking it doesnt have any affect on your program, no data is saved or changed or passed anywhere else in the program, print statments are primialry used for programmers to debug th ecode. to see whats happening in the program, on the other hand a Return statment may pass a value back to the other scope after its done running for the program to use. 
+        2 exiting the function: when a program reaches a return statment it always means exit this function now, regardless if there is more code or or not, the rest of the code will not be run. 
+
+
+Default Parameters & Named Arguments
+
+    Default Parameters
+        With the functions weve written so far, weve had to provide the exact number of arguments specififed when calling the function, however if wed like to allow some of the parameters to be option to the caller of the function, we can set defaults, The purpoes of the following function is to take a name and a number and to print "good morning {some_name} to the terminal the given number of times, if no name or number is given, the name is blank and the number is 2 
+
+            # set defaults when declaring the parameters
+            def be_cheerful(name='', repeat=2):
+                print(f"good morning {name}\n" * repeat)
+            be_cheerful()    # output: good morning (repeated on 2 lines)
+            be_cheerful("tim")    # output: good morning tim (repeated on 2 lines)
+            be_cheerful(name="john")    # output: good morning john (repeated on 2 lines)
+            be_cheerful(repeat=6)    # output: good morning (repeated on 6 lines)
+            be_cheerful(name="michael", repeat=5)    # output: good morning michael (repeated on 5 lines)
+            # NOTE: argument order doesn't matter if we are explicit when sending in our arguments!
+            be_cheerful(repeat=3, name="kb")    # output: good morning kb (repeated on 3 lines)
+
+        When usuing assigned paramaters, the order of the arguments dosent matter if we have explicitly set the arguments, 
+
+
+        Diffrent ways we are able to call on this function
+            no arguments are provided-defaults are usedone unnamed argument provided-the provided alue is used as the value for the first parameter and the second parameters default value is usedone named argument provided-- provided value is used as the value of the parameter of the same name, the others parameters default value is used
+            both unnamed arguments provided- values assigned to pramaeters in orderboth named arguments provided, values are assigned to associated paramater and then order is irrelevent 
+
+
+
+Debugging
+
+    Debugging is an important skill in any language, were going to restate a few principles we may have gone through already, Its important to understand what is happening when the code is run. 
+
+    Print statments go a long ways towards debugging code. Print alows us some way t ovisualize our code, its easy to lose track of whats going on. 
+
+    When debugging, its important to go through the code in the same order that the computer will do it, remembering that even if the function is written before its called, the computer will ignore it until its called. Its important to find out the unknowns in the code. Ask yourself, what is the input, and what do i expect as the output, if i get unexpected results then i need to work to eliminate all unknowns, trying inserting a print statment as the first line, simply to insure that the code is executing when we think it is. we can get more information by displaying some data weve passed into our function. 
+

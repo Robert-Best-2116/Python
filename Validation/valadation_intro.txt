@@ -1,0 +1,262 @@
+
+Basic Form Validation
+
+    From validiation is a key componet of any back-end developers arsenal. Validation is more ofa logical clahhelnge than a whole bunch of new code to learn. common validation rules include
+
+        Checking that the data is present
+        making sure that the data is in the correct format
+
+    The most important validation tool is the if/else statment, every validation is conditinal. if the data is not valid we should let the user know, else we should proccess it and update our database, form validation centers around usuing if statments combined with functions that return TRUe or FALSE depending on whether the data is given is valid
+
+    Step 1: validation Method on Model
+
+        we will use validations as static methods, they are placed with all other methods in the models section for theaes purposes. we will need to import flash from flask so: from flask import flash, inside of our burger class we are going to add the static method for validation. 
+
+            from flask import flash
+            class Burger:
+                # Other Burger methods up yonder.
+                # Static methods don't have self or cls passed into the parameters.
+                # We do need to take in a parameter to represent our burger
+                @staticmethod
+                def validate_burger(burger):
+                    is_valid = True # we assume this is true
+                    if len(burger['name']) < 3:
+                        flash("Name must be at least 3 characters.")
+                        is_valid = False
+                    if len(burger['bun']) < 3:
+                        flash("Bun must be at least 3 characters.")
+                        is_valid = False
+                    if int(burger['calories']) < 200:
+                        flash("Calories must be 200 or greater.")
+                        is_valid = False
+                    if len(burger['meat']) < 3:
+                        flash("Bun must be at least 3 characters.")
+                        is_valid = False
+                    return is_valid
+
+    Flash 
+        Flash uses session so that we can flash our error messages on the form page, Lukly flash messages are strings that exist for just one redirect cycle! no idea waht the fuck that means, but i think it means only after their tripped and afterwards then they go away. So the diffrence according to the platform, from flash and session, is that flash messages only last for one redirect while session stays until its manually popped. This makes flah messages ideal for validations where we only need to display the error or mesage temporarirly.
+
+        In order to use flash we must import it into our models, under the hood flash messages utalize session, so we need to make sure that seession is set up in our __init__.py so secret key etc. now usuing flash is done by invoking the flash function and passin in a string message, we place the information into the models, controlers and html inorder for it to fully work
+
+
+            controller side 
+
+                from flask_app.models.burger import Burger
+                @app.route('/create', methods=['POST'])
+                def create_burger():
+                    # if there are errors:
+                    # We call the staticmethod on Burger model to validate
+                    if not Burger.validate_burger(request.form):
+                        # redirect to the route where the burger form is rendered.
+                        return redirect('/')
+                    # else no errors:
+                    Burger.save(request.form)
+                    return redirect("/burgers")
+
+
+            Template side
+                {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                    {% if messages %}                            <!-- check if there are any messages -->
+                        {% for message in messages %}            <!-- loop through the messages -->
+                            <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+
+
+Pattern Validation
+
+    Another common validation that needs to be performed is checking wheter an input matches a certain pattern, for example, email address have a particualr pattern, passwords are often required to have a certain number of diffrent types of characaters, we can achieve this by usuing something konwn as regular expresson or regex. 
+
+    A Regex is a sequence of characters that defines a search pattern, it can be used to match a string that follows a pattern. for example, every email has a series of aphanumeric characaters folloed by an @ symbol followed by anothe rseries of aphanumeric characaters followed by a . and finaly another series of alphanumberic characaters, you dont need to know ho wto create onea regex at this point, but understanding what they are and what they are uesd for is defitney important, the python regrex for matching an email is based upon the abnoce criteria, looks something like the following ( the preceding r indacates the string is a raw string, ie all characaters should be taken literally)
+
+        r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$'
+
+    used in actuall code on the models and controllers form it looks something like this 
+
+
+        models/user.py
+            import re	# the regex module
+            # create a regular expression object that we'll use later   
+            EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+            class User:
+                @staticmethod
+                def validate_user( user ):
+                    is_valid = True
+                    # test whether a field matches the pattern
+                    if not EMAIL_REGEX.match(user['email']): 
+                        flash("Invalid email address!")
+                        is_valid = False
+                    return is_valid
+
+        controllers/users.py
+            from flask_app.models.user import User
+            @app.route('/register', methods=['POST'])
+            def register():
+                if not User.validate_user(request.form):
+                    # we redirect to the template with the form.
+                    return redirect('/')
+                # ... do other things
+                return redirect('/dashboard')
+
+    Flash Messages With Categories, 
+
+        Say we want to categorize flash messages into diffrent lables or bucekt,s, we can utalize categories by passinga second argument in the flash function
+
+            flash("Email cannot be blank!", 'email')
+
+    Other Validation Tools
+
+        str.isalpha()
+            Return True if all characters in the string are alphabetic and there is at least one character, False otherwise. Alphabetic characters are those characters defined in the Unicode character database as “Letter”, i.e., those with general category property being one of “Lm”, “Lt”, “Lu”, “Ll”, or “Lo”. Note that this is different from the “Alphabetic” property defined in the Unicode Standard.
+
+
+
+Securing Passwords
+
+    Hackers will find a way in, its the game we play, we try to keep them out they try to get in, digital cops and robbers, as web developers were the cops, were responsible for keeping the users data safe, no one gets to know what their password is except for them. not even us. think of it like a saftey deposit box, this can be very difficult to do correctley and is largey why so many websites use the option to sign in to diffrent websites such as facebook or goggle, their essesnaily outsourcing the authenticaion off to much larger companys that have more manpower to handel the situation better. this may be a part of the job later, but for now we learn how to do it ourselves.
+
+    The Bad Idea
+
+        Storing Passwords directley in the database is a no no, for security reasons, liabability etc, its very easy for a with sql injection its easy for malicious users to get access to data that wasent ment for them to see or use. so beings that other people made that mistake for us already :D we mask the data now. 
+
+    The Slighy Better Idea 
+
+        Hashing passwords so that their not just easily to read plain text! hashing masks our users passwords by scrambeling them, and it cant be reversed, this is diffrent from encription in that it cant be reversed, basicly you scrambel the egg and it stays scrambled, encription can be reversed, as long as you have the key, with enciption anyone can decript the information if they have the key, idealy on the sender and the reciver of the data should know the key, credit card data should be encrtypted, apsswords however should be hasshed, and we only store hashed passwords, 
+
+        that being said hashed passwords cant be reversed, so how in the fuck do we match passwords??? well the ansewr is this! is that the hashing always produces the same results, so we just take the output of the users password when entered and see if the scrambles match up. if it does then they get in :D if not then they dont D:! then they request help! and they dont get it D:!!
+
+        sadly hashing is supposed to be secure, buttt alot of the common hashing programs have been hacked and that shits no longer viable. besides this still leaves us vunerable to brute force attacks, hackers even have made rainbow tables, which are tables of common passwords and their hashes, rainbbow tables arnt relaly nessiscary anymore because of how fast everything is anymore, so they can pretty much brute force their way into anything with a for loop if they have the basics down. 
+
+    A Better Slighty Better Idea
+
+        adding Salt! because everything needs seasoning, wars were faught over that shit. Salt is a random string of letters and numbers that we add to a users password before hashing it and storing it into the database, well kepe the salt stored in our server, when the user comes back and logs in well concatenate (fancy word for add) the salt to the password input, hash it, and see if it matches our stored password, this reduces the hackers ability to test common passwords, because everything is pretty much a random string, howeever if a hacker can break into our server to get our database they can also steal our salt, because they suck and then were in the same situation as before, 
+
+    The Better Idea So Far
+
+        give everyone their own Salt! because salt packets are cheap afterall, no need to be stingy now, if we give everyone their own salt in the database, which dosent exzactley solve the problem, it just makes it slower for the hacker to get access to those common passwords, that being said, if you use a common password once they get the information your fucked. so what is the best option?
+
+    
+    Bcrypt! the best idea! not really but better than previously hacked hashes! 
+
+        Bcrypt is a hashing algorithm that is purpousley deisnged to be slow like really slow, not so slow that it bothers the normies but so slow that hackers get irriatated working with it. other than being grandpa driving level slow its pretty much the same as everything else it hashes the password etc, so its slow and hackers go back to the rainbow tables, because thats better? idk 
+
+        So an important side note, as developers we have to do all we can to protect our users data, however if a user uses a shitty password then theres nothing we can do, darwin strikes again. so keep your passwords secure, dont reuse the same password self, and never ever give your password to untrustworthy sites. 
+
+
+
+Flask Bcrypt
+
+        To install bcript run 
+            pipenv install flask-bcrypt
+
+        in the modle file add the following
+            from flask_bcrypt import Bcrypt        
+            bcrypt = Bcrypt(app)     # we are creating an object called bcrypt, 
+                            # which is made by invoking the function Bcrypt with our app as an argument
+
+        after making the object bcrpyt we have access to two methods that we will use to generate our password hashes and two compare passwords
+
+            1 to generate a hash, provide the pasword to be hashed as an argument
+                bcrypt.generate_password_hash(password_string)
+
+            2 to compare passwods, provide the hash as the first argument and the password to b checked as the second argument
+                bcrypt.check_password_hash(hashed_password, password_string)
+
+        Lets explore the generate_password_hash() method, if we pass it a string and print the results we will see some garbage, like so
+
+            $2b$12$sqjyok5RQccl9S6eFLhEPuaRaJCcH3Esl2RWLm/cimMIEnhnLb7iC
+
+        we store this string in our database, and there is alot of information contained in it. the first set of $ signs tell us we have the Bcrypt id, in this case 2b, between the next wet of $ signs the number tells us how many rounds of hashing we did, which is what makes bcrpyt so slow, if you want to take longer you can pass a large rvalue as the second arguement, 
+
+        but we will want to verify a users password, well compare it with th hash we have assocate with that user in the database, we pass both the hash and the provided password to check_password_hash() bcrpyt extracts the salt from the hash and applies it the provided password, compares the result to the saved hash, if they match it returns true, if not it returns False
+
+    
+    Hashing upon registration
+
+        The following is how some our code would look when we are creatinga user, in the following example we are not including validaitons, but we would validate the user input before adding it to the database. 
+
+        this goes in the controllers file
+
+            from flask_app import app
+            from flask_bcrypt import Bcrypt
+            bcrypt = Bcrypt(app)
+            @app.route('/register/user', methods=['POST'])
+            def register():
+                # validate the form here ...
+                # create the hash
+                pw_hash = bcrypt.generate_password_hash(request.form['password'])
+                print(pw_hash)
+                # put the pw_hash into the data dictionary
+                data = {
+                    "username": request.form['username'],
+                    "password" : pw_hash
+                }
+                # Call the save @classmethod on User
+                user_id = User.save(data)
+                # store user id into session
+                session['user_id'] = user_id
+                return redirect("/dashboard")
+
+    so what we are doing here in the rgister user route is validating the form here, then creaitng the hash with the pw_hash = 
+    then printing it to be sure that it actually happened, then putting it into the dictonary, as data + 
+    then we call the save user method inside of our method to transfer the information. and add a session of the user_id 
+    then redirect them to the dashboard
+
+
+    In the model we have the infromation to save the hashed password, 
+
+        class User:
+            @classmethod
+            def save(cls,data):
+                query = "INSERT INTO users (username, password) VALUES (%(username)s, %(password)s);"
+                return connectToMySQL("mydb").mysql.query_db(query, data)
+
+
+    To compare upon login we would do the following, we check the provided password with the hash in the database this also happens in our controllers
+
+        from flask_app import app
+        from flask_bcrypt import Bcrypt
+        bcrypt = Bcrypt(app)
+        @app.route('/login', methods=['POST'])
+        def login():
+            # see if the username provided exists in the database
+            data = { "email" : request.form["email"] }
+            user_in_db = User.get_by_email(data)
+            # user is not registered in the db
+            if not user_in_db:
+                flash("Invalid Email/Password")
+                return redirect("/")
+            if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
+                # if we get False after checking the password
+                flash("Invalid Email/Password")
+                return redirect('/')
+            # if the passwords matched, we set the user_id into session
+            session['user_id'] = user_in_db.id
+            # never render on a post!!!
+            return redirect("/dashboard")
+
+        what we are doing here is usuing the approute login, its a post method because it is sending the information, the data, is a dicotnary for email and the email provided, the user_in_db = a function get userby email(data) so we are passin in the users provided information, to compare it to the email that was provided by the user
+
+        if the email is incorrect, we flash invalid email/password, then redirect them to the login page
+
+        after that, we chek the password, with the bcrypt.check_password, etc, if its incorrect them we flash the invalid thing and redirect them, if the passwords match we set the user_id into session 
+
+        nd redirect them to the dashboard. 
+
+        this is the user class method for checking the email
+            class User:
+            @classmethod
+            def get_by_email(cls,data):
+                query = "SELECT * FROM users WHERE email = %(email)s;"
+                result = connectToMySQL("mydb").query_db(query,data)
+                # Didn't find a matching user
+                if len(result) < 1:
+                    return False
+                return cls(result[0])
+
+        what it is doing is checkign to see if th email is in the database, and if the answer is greater than 1 which means their are two emails or more with the same emails stored in the database then it shitcans the result and dosent let them login 
+
+        

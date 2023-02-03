@@ -1,0 +1,108 @@
+Overview
+
+
+Actually running innitalizing an Enviroments
+
+
+    first time, pipenv install flask, pipenv shell, python server.py 
+
+    when your comming back to a project with flask already installed. you just go pip, pipenv shell to intitalize python server.py
+
+
+Creating A Default error page for anything that isnt correctly typed in.
+
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    def catch_all(path):
+        return 'Invalid URL.'
+
+
+
+VS code 
+    You can set up code snippits in vs code. check youtube. 
+
+    Main concepts of this chapter
+        Rendering Templates
+        Redirecting
+        Form Data
+        Get & Post Requests
+        Session
+
+    Flask Flow
+        1 HTTP request is made and hits the server.py file
+        2 based on the route given it gathers up any html css and js Data
+        3 Then it responds back to the browser with what we return. 
+
+
+Virtual Enviroments
+    Virtual Enviroments help to keep ourseves organized and avoid conflicts with our operating system. 
+
+
+Routes
+
+    Routes are an essential part of any web applicaiton, a route is much like a variable name we assign to a request, the job of a route is to communicate to the server what kindof inromation the client needs, this route name is attached to a route on our server that points twoards a specific set of instructions. thease instructions contain information about how to interpret the data being sent, the operations that need to be completed and the responce that should be set back, thease instructions are the code we will be creating, 
+
+    Every route has two parts
+        HTTP method get, post, put, patch, delete
+        url
+
+
+Setting up your routes
+
+    Routes are set up by usuing the @app.route('/') for the root route. following that is a function, we can then make that function 
+    return a statment, or do other things, We can also make variable rules for the routes, we would do that by usuing the following code
+
+        @app.route('/hello/<name>')
+        def hello(name):
+            print(name)
+            return "Hello, " + name
+
+        @app.route('/hello/<name>/<int:num>')
+
+        So what were doing here is passing in a variable in the second section, its a variable, so it can be named anything, it dosent have to be anything specific, we can add as many vairables as we want too, as well as change it to an int by doing this in the top <int: num> to print the statment multiple times. 
+
+    So were accessing the app object and running the route method, passing in a string that is the route that we want to add to our application, we have to do this for every route that we want to add to the applicaiton
+
+        -Note- ther emay be red squiggles under the from for the import statments, we can ignore them unless we get actuall errors from them
+
+
+    We can add as many routes as we need to a server.py file, each just needs a diffrent name, 
+
+
+Localhost:5000 like the band, but with less metal
+
+    the localhost:5000 part of the route determines which server to call upon, the rest of the route including the "/" tells the server which function should be invoked. 
+
+    
+    So why localhost:5000? the flask server we created listens for an http request on port 5000 the server then looks at the url being requseted and sends the appropreate responce, if we go to route "/" the hello_world() function will still run, since we called the function we recieve what the function returns
+
+
+Rendering Views
+
+    First thing we will need to do to render templates is to place render_template following the from flask import Flask, statment
+    we will need to create a folder called template, it must be called templates with an S it must be in the same location as the server.py file, inside of it you will need to place an index.html file
+
+    afterwards for the @app.route, inside of the function def index(): we will need to place the return render_template("index.html") this file must be named the same as the file we are importing, it has to match. 
+
+
+
+Template Engines
+
+        Template engines are usefull because it alows our browser to understand our code, the render_template function sends our html file alon with any data passed through the template engine to resolve any code into html. the final product is the responce to the client
+
+    Passing Data To the HTML 
+        when returning the information, you can return multiple arguments, first will be the name of the html file, but the others can be names and values
+
+
+    Rending Data on a template
+        how do we use said data on the html? there are two imputs we can use to insert pthon like code into our flask templates
+
+        {{some variable}}
+        {%some expression%}
+
+    You can technically do logic in your templates, but you should try to limit that logic as much as possible, do the bulk of your logic in your python ocde, if you put to much logic in your templates you may slow down your server responce time, flask uses Jinja and jinja has alot o great built in features that allow us to place dynamic informatoin on html pages, 
+
+        Jinja Documentation
+            https://jinja.palletsprojects.com/en/3.1.x/
+
+

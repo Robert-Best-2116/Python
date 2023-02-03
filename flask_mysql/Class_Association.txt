@@ -1,0 +1,114 @@
+Class Association
+
+    Step one is creating a database that allows for class assocation. In the table for the user you will need to create a row that will contain all of the information for what the user will create, be it sightings for the squatch, recipies, or tweets, in your model it will be represented the name of what you are creating so sightings, recipies, tweets = an empty list
+
+    Step two, in the same database on the second table for your entry of the sightings, recipies or tweets you will need to create a row that will contain the user class information of the user who created the entry. This will be represented by a creator/user so self.user in the
+
+    Step 3, in the model for the user, you will need to create an self. in your init that is the same name as the entrys that the user will be creating, it will be equal to an empty list. so user.sightings = [], this will be appended too when the sighting is created by the user. 
+
+    step 4, in the model for your entrys, you will need to create a self. in your init that is equal to None for the user, so sightings.user = None, this allows for us to assign that information when we do a get all method. and append the author information too it as a user class. 
+
+Usuing joins to associate the two bits of information
+
+
+    The full example is below but we are going to discet it up here first
+    
+        step 1, first thing we need to is create a left join to assocate the information together by the user id of the sighting and of the users id 
+
+        step 2, after we create the query and pass it into our database and recieve our results we will need to create an empty list inorder to hold the users information to go along with the tweet/sighting etc, 
+
+        step 3, we create a for loop to iterate through all of the information that is gathered in the result, in the example they use the vairalbe row, which i think makes alot of sence because it is a direct representation of what it is. 
+    
+            for row in results:
+
+        step 4, after that we create a class for the row and a variable for it,  we can do this because we passed in the cls, at the begining of the function, this looks like this 
+
+            one_tweet = cls(row)
+
+        step 5, next we create a variable containing a dictonary that will hold all of the users information, it is important to note that any fields that are used in both tables will have their name changed, it does matter which order you put the join in for renaming. you can use a print statment inorder to help you understand where the information is comming from. it looks like this
+
+            one_tweets_author_info = {
+                "id": row['users.id'], 
+                "name": row['name'],
+                "handle": row['handle'],
+                "email": row['email'],
+                "password": row['password'],
+                "created_at": row['users.created_at'],
+                "updated_at": row['users.updated_at']
+            }
+
+                
+                Its very wordy but it explains exactley what it is. see how the id, created at and updated at are both speificied in value section of the key value pair, of which id or created at that they are. the rest of the information is gained by usuing row[''] with the name of the field inside of it. 
+
+        step 6, we then take this information that we gathered and place it inside of a new variable, and assocate the information we gathered with the user.User class structure we do this because we need the users fomatting.
+
+            author = user.User(one_tweets_author_info)
+
+
+        step 7 afterwards we assign that variable where we have the self.user = None, in this instance its the self.creator = None, we do this so that we have access to all of the creators information when we are utalizing the information in the for loop to display all of the information in the html. We do not use the name of the sighting or tweet or recipies instead we use the same name we assocated the row class with, so in this instance its the one_tweet because that is what we assocated to the tweet/recipies/sightings class, it has the exazct same strucutre as the class we are usuing this function in. which is why it has its own creator = None
+
+            one_tweet.creator = author
+
+        step 8, now we append the information to the empty list we created in step one so that we can iterate through this informaiton on our for loop on our html. the name that we are appending is the variable we assigned to the row class. 
+
+            all_tweets.append(one_tweet)
+
+
+        step 9, lastly we return the list. 
+
+            return all_tweets
+
+See Below Function for full visability. 
+
+
+@classmethod
+    def get_all_tweets_with_creator(cls):
+        # Get all tweets, and their one associated User that created it
+        query = "SELECT * FROM tweets JOIN users ON tweets.user_id = users.id;"
+        results = connectToMySQL('real_twitter').query_db(query)
+        all_tweets = []
+        for row in results:
+            # Create a Tweet class instance from the information from each db row
+            one_tweet = cls(row)
+            # Prepare to make a User class instance, looking at the class in models/user.py
+            one_tweets_author_info = {
+                # Any fields that are used in BOTH tables will have their name changed, which depends on the order you put them in the JOIN query, use a print statement in your classmethod to show this.
+                "id": row['users.id'], 
+                "name": row['name'],
+                "handle": row['handle'],
+                "email": row['email'],
+                "password": row['password'],
+                "created_at": row['users.created_at'],
+                "updated_at": row['users.updated_at']
+            }
+            # Create the User class instance that's in the user.py model file
+            author = user.User(one_tweets_author_info)
+            # Associate the Tweet class instance with the User class instance by filling in the empty creator attribute in the Tweet class
+            one_tweet.creator = author
+            # Append the Tweet containing the associated User to your list of tweets
+            all_tweets.append(one_tweet)
+        return all_tweets
+
+
+
+Assocating Users In Templates
+
+    This is where we get the data we just gathered with our join statement to the template to render the information
+
+        {% for one_tweet in all_tweets %}
+            <h6>{{ one_tweet.creator.name }}</h6> 
+            <a href="/profile/{{ one_tweet.creator.id }}">@{{ one_tweet.creator.handle }}</a>
+            <p>{{ one_tweet.content }}</p>
+        {% endfor %}
+
+    Above is the example provided by the platform. it uses a four loop to display one_tweet in all_tweets, which is what we returned
+    
+        In order to access said information we are usuing . notation, to access the values inside of the dictonary, we use one_tweet.creator to access the information inside of the dictonary we created and assocated with the self.creator attribute, inorder to access the informaiton deeper inside of it, the key we use an addtional . so one_tweet.creator.name, which gives us the name of the person we assocated with this spesfic tweet. 
+
+    We do not use the .creator when accessing the information about the tweet its self, as seen in the one_tweet.content, as it hasent been saved inside of another dictonary. 
+
+    Sometimes we will have to make the choice of wheteher to use the connecting word or not when dealing with assocated instances. in the specific case of the profile link, where we need an id, we used the id of the creator. because we want to see the information directley related to the creator, not the tweet. 
+
+        <a href="/profile/{{ one_tweet.creator.id }}">...</a> 
+
+    When figuring out when to use the connecting word or not, when we are dealing with assocated instances, we need to take into account what the end result is. do we want to view the spesifc tweet to see who all liked it? or to deleate it? then we use the one_tweet.id if we need to see the users profile page then we need to have the one_tweet.creator.id insdead because of our end goal. 

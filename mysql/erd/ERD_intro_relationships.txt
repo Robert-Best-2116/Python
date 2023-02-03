@@ -1,0 +1,215 @@
+Intro to ERD
+
+    What is mySQL workbench?
+        MySQL workbench is a graphical user interface for us to interact with MSQL which is one of the most popular relational databases in the world, through SQL commands, it is not nessary to ues a GUI we can interact with our MySql databases through the terminal but the GU makes it easre to see our data and create new databases
+
+
+    Why MySQL Workbench?
+        We use MySQL workbench we whe are interactin gwith our databases because it will help us run some SQL queires, italso has a great interface wehere we can map out our tables and establish relationships between them. 
+
+
+    Why MySQL and Database Design
+        In these times you have probably created diffrent accounts for diffrent websites and services, all with my own login information. youve probablery written posts on forms, or liekd posts, even uploaded and shared inforamtions, videos or audio with other people on the internet, the one thing in common on all of thease diffrent websites is that you are awlays creating, minpulating and saving data. 
+
+        In addition to the HTML and CSS that make up the view of a particular page, and the backend logic that dictates the functionality, there is also the Database, which takes care of your data, databases are collections or organized information that can be easily accessed, managed and updated. As a full-stack devloper you should be familiar with the creation of your database and the design of the rueles by which data is stored. 
+
+        One of the most important things about database deisn is to organize your data to minimize reptetion, your database is the backbone of your application, and itis very important to understand how to properly organize it to maximise efficency and minimize data queries. in this chapter we will explore how to create relational database mdels, and explore the diffrent ways in whic you can relate data useing them. 
+
+
+    Why ERD First?
+
+        ERD is the abbreviaton for "Entity Relationship Diagram" This is just a fancy way of saying that ERD are essentially Visual Planes of how your database looks and behaves. ERD and SQL work together very intimatley, an ERD is a map of the structure of how we want to store our data and SQL is the language we use to manipulate the data according to the relationships we define in our ERD, learning the design of the Database first will help us visualise what our relational databases look like, which makes it much easer to choose the actual SQL syntax, 
+
+
+    Why ERD at All?
+
+        ERD is a process of desiging your tables and establishing relatinoships between them, making your data relational. almost all imaginable data can be stored in a relational way. there really isnt anything you cant do using a relational database like MySQL, later you will learn non-relational databases, where everything is stored in a single table, there are advantages and disadvatagaes for both but we find that is much easer to move from a relatinal database to a non-relational database. 
+
+
+    Reflection Question: How would you describe an ERD?
+
+        It sounds alot like a map to me, or a blueprint for how you want things to work out. and how they should behave. 
+
+
+
+Coding Dojos Graphic Organizer
+
+    Keeping Important Information in your Brain
+
+        One of the challenges of fast paced learning is encountering a concept and working to move that new idea from your short-term memory into long-term memory, doing this allows us to keep the information memorable and at our disposeal when we need it, one of the tools that we can use to do this is called "retreval practice". 
+        
+        Retreval Practice is bringing knowledge to mind (deliberateley recalling information) inorder to enhance deep learing, talking through concepts with other people, applying ideas by tinkering and connectin gideas usuing graphic organisers are all methods you can use to leverage retrieval practice and maximise learning.
+
+        For keeping track of information over the term of your course, consider usuing a graphic organizer to keep track of programming concepts
+
+
+    How to use the Graphic Organizer
+        
+        As you encounter new information in your coruse, watch the videos and read through the content on the page, giving it your full attention, then review the content and videos of the page again, but pause and summarize each key concept in your graphic organizer, 
+
+        Later when you need to quickly reference an idea, such as how do i access a template in my applications? you will be more likley to understand because youve described it in your own words and locate the information you need. 
+
+
+
+Database Design
+
+    Main Topics for Database Design
+
+        There are many different terms and concepts that you will learn throughout this chapter, but they all point to a very simple concept: Do Not Repeat Data. if you can remember this concept, thejj rest is to familiarize yourself with the terminology
+
+            Database Relationship
+                One to One
+                One to Many
+                Many to Many
+
+            Three forms of Normalization
+
+            MySQL Workbench
+
+            Type of Data
+
+
+    What is the Point?
+        When we normalize our tables, we do not repeat data, this means that in the long term, we can use our storage space more effciently.
+
+        There is also another advantage that we obtain by normlaizing our tables and establishing relationships between them, Later we will learn that Identifiers and Foreign Keys serve as the glue between our tables, with sQL we can manipulate our tables and create the custom table we need for the job in question. 
+
+        By Dividing our data into diffrent tables, we make each table good at one thing: to store instances or rows of that data. in taddtion if we seperate our tables, our database because more modular, This means that we can create our own custom tables depending on the task in question usuing SQL 
+
+        We will learn this in the next chapter but it is crucial to understand that we are usuing the strategy of normalizing our tables and establishing relationships betwen them because want to save storage sapce, and also because it makes our dtabase more modular so we can create more variety of custom tables usuing SQL
+
+Reflection Question: why do you think the key take away is do not repeat data? 
+
+    I think its because it stops the database from being clunky and repeating its self. if something constantly repeats its self then it takes away the whole purpose of being modular. and being able to reuse the tables and not having to repeate yourself similar to dry code.
+
+
+
+One to One Relationships
+
+
+    Consider the following table
+
+        ID First_Name Last_Name Address
+        1  Randall    Frisk     576 Steel ln. Grass valley NY
+        2 Michael     Choi      333 Ninja Dr. Seattle WA 
+        3 Dexter      Clark     978 Flip LN. San Jose CA 
+
+    
+    Although each customer can only have one address, it would seem more fitting and better organized if we seperate out the address and put it in its own table. we can then keep better track of specific information about a given address without fear of our table getting to large to manage. 
+
+
+        ID First_Name Last_Name Address_ID
+        1  Randall    Frisk     4
+        2 Michael     Choi      5
+        3 Dexter      Clark     6
+    
+    the address_id is called a Foreign Key or address table, this is how we are able to join the address and customers together 
+
+        Address
+        ID Street         City          State
+        4  576 Steel Ln   Grass Valley  NY
+        5  333 Ninja Dr   Seattle       WA
+        6  978 Flip Ln    San Jose      CA
+
+
+    Since each address that we have can only belong to a single customer and each customer can only have one address we call this a One to One relationship
+
+        -Note- each existence of a relationship can be optional, like having a customer record that has no related address record
+
+
+    What can we do with SQL???
+
+        idfk thats why im taking theaes classes. even though our information is split into two diffrent tables, we can combine them into one usuing SQL well cover this information later, but it is imortant to see that a table can be combined as long as there is a foreign key that refrences the other tables ID, well cover that shortly. 
+
+    Examples of One to One
+        The easyest way to see if your relationship makes sense for your data is t osimply talk through the relationships out loud, remember that relationships go in two dirrections, for example, one address only one zip code, but one zipcode can have many addresses, thus making it a diffrent type of relationship. 
+
+            examples of one to one relationships
+
+                Customers and credit cards-every ucstomer has one credit card, every credit card belongs to one customer
+                Users and emails- every user has one email address, every email address has one user
+                Product and image- Every product has an image, every image is of a product. 
+
+
+
+One to Many and Many to One Relationships 
+
+    Continuing form our previous example of customer and address tables where one customer can only have one address, we want our customers to be able to order items from us, to add our orders table it will require us to define a diffrent relatinoship, each customre is able to have multiple orders but each order can only belong to one customer, thus one to many, 
+
+        ID First_Name Last_Name Address_ID
+        1  Randall    Frisk     4
+        2 Michael     Choi      5
+        3 Dexter      Clark     6
+
+        orders
+        ID  Order Data  Amount  Customer_Id
+        667 10/1/13     $225.00 1
+        688 10/5/13     $200.00 2
+        689 10/20/13    $195    2
+        690 10/25/13    $165    3
+
+        Notice how we can easily refrence all the customers information by including the Customer_Id Foreign Key because it links to the users information, as well as their address since one customer can have many orders for any given user we call this a one to many relationship
+
+        
+    What can we do with SQL 
+
+        Notice how the foreign key and the ID of the table that we want to combine act like a glue, they can join different tables usuing SQL well see how to do this later, but its important to know that we are setting up thease relationships so that we can create customized tables like the illustration below by usuing SQL to join diffrent tables on the Foreign Key and Primary ID 
+
+    Examples
+        One to many is probabley the most common relationship youll encouter wihle making web applicatoins, often times a one to one relatinship is actually much more similar to a one to many 
+
+        Messages and Comments- one comment blongs to one mesage, but one mssage can have many Comments
+        States and cities- one city is in only state, but one state can have many cities
+        Customers and Orders- one order only has one customer, but one customer can have many orders
+
+
+
+Many to Many Relationships
+
+    We have atable that keeps track of each of the orders the customer placed but we havent created a way to keep track of the orders that they are ordering
+
+        orders
+        ID  Order Data  Amount  Customer_Id
+        667 10/1/13     $225.00 1
+        688 10/5/13     $200.00 2
+        689 10/20/13    $195    2
+        690 10/25/13    $165    3
+
+        items
+        ID  name    Description 
+        110 misc    misc
+        111 misc    misc
+        112 misc    misc
+        113 misc    misc
+        114 misc    misc
+        115 misc    misc
+
+    Above we created the items table to hold the name and description of each item that the customer can order
+
+    Since each order can have many diffrent items and those same items can show up in many diffrent orders we have to use a diffren ttype of relationship to connect orders to tiems. Oders can have many items and items can have many orders so ew call this a many to many relationship 
+
+    In a Many to Many relationship we create a connector table, also known as a joiner table, that has both the order Id and the item id so that we can determine all the items in a partuclar order
+
+        Items_Orders
+        Order ID    Item ID
+        687         110
+        687         111
+        688         112
+        688         115
+        689         113
+        689         114
+        689         115
+        690         113
+        690         114
+
+
+
+Examples
+
+    Many to many is often the most confusing type of relationship for lots of people, if you make sure to talk out the relationship out loud, youll quickly find if it works or not, remember anytime you have a many to many it will require some sort of joining table, examples below
+
+        Users and Intrests-One user can have many intrests and one intrest can be applied to many users
+        Actors and Movies- one movie can have many actors and one actor can be in many Movies
+        buissness and Cities-one buissnesscan have be spread accros many cities, one can be home to many buissness
+
+        

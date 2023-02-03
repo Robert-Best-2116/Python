@@ -1,0 +1,119 @@
+
+
+Lecture Office Hours 10/11
+
+    All query selections will follow the same guidelines what we want to do, what we want, where we want it from, 
+
+    https://blog.codinghorror.com/a-visual-explanation-of-sql-joins/ 
+
+
+Lecture Office Hours 10/11 
+
+    Code to start a selection with a query 
+
+    SELECT *
+FROM(
+    SELECT
+        *,
+        ROW_NUMBER() OVER() row_num
+    FROM
+        cities
+) tmp
+WHERE
+    row_num > 8;
+
+
+    https://www.w3schools.com/sql/sql_join_full.asp
+
+    HTTP status errors and their meaning
+
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#information_responses
+
+    Into into restfull-routing
+
+    https://www.learnhowtoprogram.com/c-and-net/basic-web-applications/introduction-to-restful-routing
+
+
+
+Lecture 10/11
+
+    Into to flask, super behind atm, need to read and catch up alotttt but its doable. 
+
+    Test early test often, never nest projects or virtual envorments, use the documentation, flask python and jinja have good documentation, will need to read that later on down the road, modularize whenever you can, 
+
+    user a boilerplate, - itsa basic format, every server is going to have to some similiarties, create a masterfile. 
+
+    pip, pipenv install pipenv 
+
+    pip is important, idk what it is but i need it. check with pip list in terminal. 
+
+    may need python -m designates that its a python module, 
+
+    pipenv shell creates the virtual enviroment, should be looking for creating virtual enviroment, should have launching sub shell. run pip list afterwards, 
+
+    adding things to pip shell, pipenv install flask, to install flask, to install flask on the shell. you can check in the folder that the pip is installed in, and you can use pip list to be sure that it worked. the files will auto create when the shell is run if you delete them in the enviroment. you can remove the virtual enviroment. usefull if you have nested virtual enviroments on accadent. to fix that, you go to the lowest nested enviroment, run pipemv --rm run piplist to be sure that its gone, be sure to exit it first. run the exit command. 
+
+    you can install all the pipenv stuff at once, pipenv install flask, it will create the virtual enviroment, and install flask, but not run the shell. you run it with pipenv shell
+
+    you create the boiler plate and copy it into the new assignment, then just run the shell. 
+
+    we will probabley need to install flask every single time. 
+
+    we will want to open a new file called server, touch server.py creates a new file called server
+
+    step two, import flask from flask
+
+    then we will want to create a local variable, app = Flask(__name__)     (this is the first requrment for flask applications)
+
+    then it will need if __name__ = "__main__':   (top level in the application)
+                            app.run(debug=True, port=5000)  (this is the most commonly used port, if its being used change)
+
+    then run the server, emter server.py into the terminal, it will then run the server 
+
+
+    fun add on for someone trying to mess with the code place before the if __name__ it also catches anything that isnt defined
+
+
+        @app.route('/', defaults={'path': ''})
+        @app.route('/<path:path>')
+        def catch_all(path):
+            return 'NOPE, TRY AGAIN'
+
+
+    also before the if __name__
+
+    @app.route() (this is always considered a get method unless you tell it to be something else, so that he request can get the informatiom it needs to create/rather show the website, it will always be a string, the method/function under it will be what it does with the get request.)
+
+
+    the route is the string itself and the route thats tied to it, itll look like this "/routes_name"  always use well structured routes that are easy to understand for good structure
+
+        @app.route("/home") 
+
+    methods after the routes_name
+
+    @app.route("/home")
+
+    def dashboard(): (name dosent matter)
+        return "HIII" 
+
+    you create the route route like this
+
+    @app.route("/")
+    def root() 
+        Return "Root Route" (lets you know where your at at the time)
+
+
+
+Leture 10/13 Lecture
+    late to lecutre will need to rewatch beggining possibly office hours, had to take care of things with emma and myself emotionally or id never be able to focus on class. 
+
+    in the @app.route in the root will be the only time that you use '/' not sure why, but its what he said :D you can type cast inside of the url, its the only place you will use syntax, 
+
+    jinja documentation!
+
+    https://jinja.palletsprojects.com/en/3.1.x/templates/
+
+    templax syntax error means html issues, it will point to what failed because of the line, either a bracket wasent closed or a % wasent added when it should have been. 
+
+    more jinja documentaiton on bullets? 
+    https://jinja.palletsprojects.com/en/3.1.x/templates/#builtin-filters

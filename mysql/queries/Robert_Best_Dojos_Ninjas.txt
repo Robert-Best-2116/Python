@@ -1,0 +1,34 @@
+So the first time i did this what i did was create three new tables, not three new values so was totally confused in this, and then i was having issues with the id's matching up, and all sorts of other issues, so im watching the walk through, and finding out that i dident want to create three new tables i wanted to add in values. was totally going about it wrong. 
+
+
+INSERT INTO dojos (name)
+VALUES	('Dojo1'), ('Dojo2'), ('Dojo3');
+SELECT * FROM dojos;
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM dojos;
+INSERT INTO dojos (name)
+VALUES	('Dojo1'), ('Dojo2'), ('Dojo3');
+-- ran and deleted the delete and insert to many times. 
+SELECT * FROM dojos;
+INSERT INTO ninjas (dojo_id, first_name, last_name, age)
+VALUES ('8', 'Robert', 'Best', '30'),  ('8', 'Some', 'Other', '21'), ('8', 'Random', 'Names','25');
+SELECT * FROM ninjas;
+-- got an error code for column count dosent match 1136. idk why when there all equal, to the four columns there. first 
+-- section dident have an age, then i dident match up the ids correctley. so that threw error 1452. Ill figure it out eventually. 
+INSERT INTO ninjas (dojo_id, first_name, last_name, age)
+VALUES ('9', 'Robert1', 'Best1', '30'),  ('9', 'Some1', 'Other1', '21'), ('9', 'Random1', 'Names1','25'),
+('10', 'Robert2', 'Best2', '30'),  ('10', 'Some2', 'Other2', '21'), ('10', 'Random1', 'Names1','25');
+
+-- success!!!! yeah no orignality in the names im aware, just struggeling to get this done, still have one more project to go, which will probabley be late again. 
+
+SELECT * FROM dojos 
+LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id
+WHERE dojos.id = 8;
+SELECT * FROM dojos;
+
+SELECT * FROM dojos 
+LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id
+WHERE dojos.id = (SELECT dojo_id FROM ninjas ORDER BY dojo_id DESC LIMIT 1);
+
+So once i wasent totally confused, this became kindof fun. really feeling like once i get a halfways decent understanding of anything were just gone to the next thing which really sucks.  but thats an accelerated pace for you. on the bright side i learned how to create new tables in the script which i dident need to do by usuing CREATE TABLE placeholder AS columns your copying, FROM table your copying, which was cool but totally not what i needed to do. so yeah. one more down. 

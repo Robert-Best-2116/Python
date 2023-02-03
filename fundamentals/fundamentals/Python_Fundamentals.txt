@@ -1,0 +1,195 @@
+
+
+Python Syntax
+    In python we can either use python or tabs in indentation, we can only use one or the other. 
+    indentation is in refrence to blocks of code, ie if statments, functions, loops, and classes. 
+    python has no brackets or braces, instead the most imporant aspect of python is indentation to indcate which lines belong to which blocks of code.
+
+    what is a code block???
+        a Code Block is a set of lines o code that belong to gether, ex the first line of an if statment gives the condition, but the lines that follow explain what we want to happen if the condition is true, 
+        examples of code block keywords
+            def (functions)
+            if, elif, else (conditional statments)
+            for, while (loops)
+            class (classes)
+
+    in Python, the first line (the one containging the keyword) is not indented, but ends with a colon (;) the lines tfollowing that belong to that ode block are indented 4 spaces, when the code block is over, indent back 4 spaces, 
+        ex
+            x = 10
+            if x > 50:
+                print("bigger than 50")
+            else:
+                print("smaller than 50")
+
+    if we start a code block there must be at least one line of indented code immediatley following, if we try to run a file with a hanging code block well get a syntax error, python has a pass statemenet for sutations where we know we need the block statment but we arent sure what to put in it yet. 
+        ex
+            class EmptyClass:
+                pass
+            for val in my_string:
+                pass
+
+
+Data Types
+
+    Primitive data types
+        Thease are the basic building blocks of a coding language, most coding langagues have thease in common 
+        
+        boolean values-assesses the truth value of something, it has only two values True and False (uppercase is important for some reason)
+
+        numbers intergers (whole numbers) floating point numbers (aka decimals) and complex numbers, not sure what that is
+
+        strings literal text
+
+    Composite types
+        thease are collections composed of the above primitive types
+
+            truples-a type of data that is immutable (cant be modified after its creation) and can hold a group of values. truples can contain mixed data types
+
+            lists-a type of data that is mutable (can be modififed after its creation) and can hold a group of values usually ment to store a collection of related data.
+
+            dictionaries-a group of key-value pairs dictionary elements are indexed by unique keys which are used to access values, 
+                link to python dictionary methods. https://www.w3schools.com/python/python_ref_dictionary.asp
+
+    Common functions
+
+        if were ever unsure of a value or a variables data type we can use the type function to find out. 
+            ex
+                print(type(2.63))		# output: <class 'float'>
+                print(type(new_person))		# output: <class 'dict'>
+
+        for data types that have a length attritubte eg lists dictionaries trubples strings we can use the len function to get the length
+            ex
+                print(len(new_person))		# output: 4 (the number of key-value pairs)
+                print(len('Coding Dojo'))	# output: 11 
+
+
+Javascript VS Python
+
+	                        Javascript	                                            Python
+int	                        var num = 35;	                                        num = 25
+float	                    var dec = 4.2;	                                        dec = 4.2
+log	                        console.log(num);	                                    print(num)
+type check	                console.log(typeof(dec));	                            print(type(dec))
+conversion	                N/A.  All numbers are floating point in Javascript      num_to_dec = float(num)
+random number between 2-5   var rand_num = Math.floor(Math.random() * 4) + 2	    import random rand_num = random.randint(2,5)
+
+
+Numbers
+    there are three basic types of numbers in Python
+        Integers-whole numbers postitive or negative
+        float-decimal numbers, postitive or negative
+        complex-part of the real number system (the union of both rational and irrational numbers) and are ofte nreferenced with the letter j, ex 1 = 3j. Note if your not sure you need to use them then there usually safe to ignore
+
+Type
+    if your unsure of what type of number it is you can type type() to view the object type of any object. 
+
+Conversion
+    all python objects have data type methods we can use to convert number types from one to another not sure how thats usefull yet
+        ex
+
+            int_to_float = float(35)
+            float_to_int = int(44.2)
+            int_to_complex = complex(35)
+            print(int_to_float)
+            print(float_to_int)
+            print(int_to_complex)
+            print(type(int_to_float))
+            print(type(float_to_int))
+            print(type(int_to_complex))
+
+Random Number
+    python does ont have a random number generator, instead use the random module instead.
+        reading on random module generator. https://docs.python.org/3/library/random.html
+
+    ex
+    import random
+    print(random.randint(2,5)) # provides a random number between 2 and 5
+
+
+Strings
+
+    String Literals
+        strings are any sequence of characters letters numbers symbols etc encolsed in single or double quotes
+
+    concatenating s trings and variables with print
+        There are multiple ways tha twe can print a string containing data from fariables
+
+        the first way is by adding a comma after the string followed by the variable, note that the comma is outside the closing quotation mark of the string, the print() function inserts a space between elements seperated by a comma
+
+        ex
+            name = "Zen"
+            print("My name is", name)
+
+        the second way is by concatenating the contense into a new string with the help of + 
+
+        ex
+            name = "Zen"
+            print("My name is " + name)
+
+    Type Casting or explicit type conversion
+        we may find outserlves wanting to change a values data type from one type to another, python doesnt know how to add a string and a number butit can add two strings together, so if we cast the number as a string then it will be able to "add" the two valvues together
+
+        ex
+            print("Hello " + 42)			# output: TypeError
+            print("Hello " + str(42))		# output: Hello 42
+
+        another example may be reciving a string imput from a user that we want to treat as a number
+        
+        ex
+            total = 35
+            user_val = "26"
+            total = total + user_val		# output: TypeError
+            total = total + int(user_val)		# total will be 61
+
+        String Interpolation
+
+            we can also inject variables into our strings which as known as string interpolation, there are a few diffrent ways this can be done 
+
+        F-Strings (literal string interpolation)
+            F strings were introduced in python 3.6 for string interpolation, to construct a f-string, place an F right before the open quotation. then within the string, place any varibles within curly brackets
+
+            ex
+                first_name = "Zen"
+                last_name = "Coder"
+                age = 27
+                print(f"My name is {first_name} {last_name} and I am {age} years old.")
+
+        String Format
+
+            prior to F strings string interpolationwas accompished by usuing the .format() method, when usuing it type ut the full stirng, replaceing any words that will get their values from vairables with {} then call the format method on the string, passing in arguments in the order which they should fill the {} placeholders. 
+
+            ex
+                first_name = "Zen"
+                last_name = "Coder"
+                age = 27
+                print("My name is {} {} and I am {} years old.".format(first_name, last_name, age))
+                # output: My name is Zen Coder and I am 27 years old.
+                print("My name is {} {} and I am {} years old.".format(age, first_name, last_name))
+                # output: My name is 27 Zen and I am Coder years old.
+
+
+        Built in string Methods
+
+        ex 
+            x = "hello world"
+            print(x.title())
+            # output:
+            "Hello World"
+
+
+        Common String functions
+            string.upper() returns a copy of the string with all te characters in uppercase
+            string.lower() returns a copy of the string with all the characaters in lowercase.
+            string.count(substring) returns the number of occurences of substring in stringstring.
+            string.split(char) returns a list of values where the string is split at the given character, without a paramater the default split is at every space
+            string.find.(substring) returns the index of the start of the furst occurrence ofa substring within a string
+            string.isalumn() returns a boolean depending on wether the strings length is >0 and all characaters are aplhanumeric (letters and numbers only) strings that include spaces and puncuation will return false for this method. similar methods include .isaplha() .isdigiti() islower() isupper() and so on all return booleans 
+            string.join(list) returns a string that is all strings within our set (inthis case a list) concatenated.
+            string.ends with(substring) returns a boolean based upon weether the last characters ofa string match the substring. 
+
+        Documentation on strings types. 
+
+            https://docs.python.org/3/library/stdtypes.html
+
+
+

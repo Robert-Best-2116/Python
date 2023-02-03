@@ -1,0 +1,65 @@
+
+
+Lectures With Nathan  10/4
+
+    Knowing the errors and reasearching what they mean will help alot in understanding how to get it to work. 
+
+    Object Orentated Programing 
+
+        What is oop? its a way of writing our code that makes it more compartmentalized, it breaks it down instead of having it large lists, it makes objects, and classes, and breaks them down into smaller groups. so human class, they have common things that make them human, their similar but not the same, so we would be objects of the class human, 
+
+        when creating a class, we always have to have the class class_name: followed by deff __init__(self): it may have something else after it but thats unnessisary. 
+
+        self = the instance of the class in memory, so whats being applied to the class.
+
+        if you use default names in the paramaters, it will have to be at the end of the () or else it will throw an error. 
+
+        self = the particular instance of the class in memory, if you print anna it will give you that location. 
+
+        attributes dont need to be declared in the class, they can be added anywhere. 
+
+        inorder to print the information in a class you need to create a method, theres also a built in method for it. 
+
+        if you write a new attribute for a class, it will overwrite the current attribute 
+
+        the attributes can be in any order. the arguemnts and paramaters need to be in the same order. 
+
+        use meet up for coding, 
+
+        debug and figure out problems like you would if i was doing algebra, 
+
+
+Lecture 10/6 Office Hours
+
+    note when usuing good file stucture, we will need the overall folder that contains multiple of the same type of thing it should be plural. 
+
+    importing diffrent files in python 
+        from, foldername.file import class_name(we can go deeper, ex, foldername.foldername.file)
+
+    For inherance, we will need a parent class, it should just include the base things that all child classes should inherit, but not be to spesific. on the child class we will need to write in super().__init__ into, if the classes have the same attributes, then the child class will overwrite the attrbute of the parent class.
+
+    you can import multiple classes that are in the same folder in but in the section where you create the variable. you will need to put the file_name.class("name") 
+
+    ex, gandalf = humans.wizard.wizard 
+
+Lecture 10/6 Lecture-MYSQL 
+
+    All tables that hold multiple instances of the same type are plural. 
+
+    Databases that are dry, ie not repeating information, are refered to as normalized. 
+
+    data bases are used for persistance, and relationships, persistance, meaning data that will continue to last after the user has logged off, relatinoships im not sure about. 
+
+    naming convetions in mySQL is lowercase_with_underscores 
+
+    Passwords always need to be 255
+
+    all tables need an id, created at, and updated at, id is a int, created_at and updated_at are both going to be datetime
+    to have the datetime auto update, put NOW() in the parenthsis, or current_timestamp, or you can rightclick the updated_at or created at to get the right one. a good one is null on update_current_timestamp. the ID will need to have PK NN and AI clicked. AI is auto increment, 
+
+    to link tables together in MySQL youl use one to many, and youl start with the many ie click it first. 
+    then youl need to install the user_id on the linked table, so that way the table knows which user set the comment. 
+
+    set the schema your working with as default. when your usuing it, right click it as set as default.
+
+    its wise to test your data base usuing your database, so that you can see that its working, you will need to apply it for it to last. 

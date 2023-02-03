@@ -1,0 +1,222 @@
+Dictionary
+    A dictonary is another mutable sequence type that can store any number of python objects, including other sequence types. so its a list that can store information, regardless if its a list, another dictonary a string etc, tuples even, dictonarys consist of pairs, which are called tiems, of keys and their corresponding values. while this data structure is known as a dictionary in python, youll see the same structure refered to as an associative array, or a hash table in other languages, in general hash table is the most generic term. 
+
+    A summary of dictonarys
+        A dictonary is an unordered collection of objects.
+        values are accessed usuing a key usually a stringa dictonray can shrink or grow as needed
+        the contents of a dictonary can be modififed
+        dictonarys can be nested
+        sequence operations such as slice cannot be used with dictionaries, because there unordered
+
+
+Keys Vs Indexes
+
+    Dictonaries use keys to track position rather than index, whats the difference between keys and indexes? 
+
+    keys are typically strings, indexes are awlays integers
+    
+    keys are not in any sort of order, as dictionary values are not stored sequentially in memory, indexes are ordered from least to greatest as list and tuple values are stored sequentially in memory
+    
+    dictonaries only hae keys, dictionaries do not have indexes 
+
+
+Creating Dictionaries
+
+    Creating a dictionary in python is a bit like creating any other sequence, dictionaries are enclosed by braces {} 
+
+    ex
+        #literal notation
+        person = {"first": "Ada", "last": "Lovelace", "age": 42, "is_organ_donor": True}
+        capitals = {} #create an empty dictionary
+
+    note, the keys in the example above are all strings, but the values are a variety of types, generally you will only use strings for keys, think of them as a lable for the stored value.
+
+
+Adding New Key-Value Pairs 
+
+    Dictionaries do not have a .append() method, you can add new values by setting a new key much like you would a variable, 
+
+    ex
+        #literal notation
+        person = {"first": "Ada", "last": "Lovelace", "age": 42, "is_organ_donor": True}
+        capitals = {} #create an empty dictionary then add values
+        capitals["svk"] = "Bratislava"
+        capitals["deu"] = "Berlin"
+        capitals["dnk"] = "Copenhagen"
+
+    In the example above we created two dictionarys usuing two diffrent methods, first we used literal notation, the key-value pairs are enclosed by curly brackets. the pairs are then seperated by commas, the first value of a pair is a key, which is folowed by a colon : and a value, the first string is a key, and the second string is a value 
+        Note-the second string does not have to be a string, it can be anything 
+
+    second way we can create a dictonary is by creating an empty dictonary and adding some values to it. the keys are inside the square brackets, and the values are located on the right side of the assignment. 
+
+
+changing the value in a dictonary
+
+    changing the value of a key value pair is much like adding one, you will follow the same format, but instead youl have a previously used key, followed by its new value
+    
+    ex
+
+        my_dict["some_string"] = some_value
+
+Testing for an existing key
+
+    Each key in the dictonary must be unique, if you make an assignment usuing an existing key as the index, the old alue associated with that key is overwritten by the new value. Sometimes you may want to test if a key already exists in the dictionary to know whether to add an initial value or replace an exisiting value  this also works with the not logical operator, 
+
+    ex
+        if some_key in my_dictionary:
+        # update the value
+
+    ex not operator, 
+        if "email" not in person:
+            person["email"] = "newemail@email.com"
+        else:
+            print("Would you like to replace your existing email?")
+
+
+
+Accessing Values
+    to access the values of a dictonary you can use the fimilar square brackets along with the key to obtain its value
+
+    ex
+        print(person["first_name"])
+        full_name = person["first_name"] + " " + person["last_name"]
+
+
+Removing Values
+
+    There are two ways to remove a key-value pair from a dictonary the first method the first way is well i dont really understand it according to the example which ill post, the value removed will be before the dictonary name, followed by the .pop() function with the key inside of the () it will supposidley remove the key and return its value
+
+    value_removed = dictonary_name.pop('key_removed')
+
+    the other way is to remove the key with the del function, followed by the dictonary name with the key inside of [] 
+
+    del dictonary_name['key_name']
+
+
+Multi_line Syntax 
+
+    you can write any dictonaries key-value pairs on multiple lines to make iteaser to read, which is very useful for larger dictonaries. 
+
+    ex -hotdog
+        person = {"first": "Ada", "last": "Lovelace", "age": 42, "is_organ_donor": True}
+
+    ex- hamburger
+        person = {
+            "first": "Ada", 
+            "last": "Lovelace", 
+            "age": 42, 
+            "is_organ_donor": True
+        }
+
+
+Common Built-In Functions and methods
+
+    Python includes the following standalone functions for dictionaries
+
+        len()-gives the total length of the dictonary 
+        str()-produces a string representation of a dictonary
+        type()-returns the type of the passed variable. if the past variable is a dictonary it will return a dict type
+
+    Other methods
+
+        .clear()-removes all elements from the dictonary
+        .get(key, default=None)-A safe way to get a value, if the key does not exist, it returns the value for the specified key, or none or a value that you specify with the default = if the key is not in the dictonary
+        .update(pairs_to_update)-add and update multiple key-value pairs at once by passing in another dictonary of the pairs to update and add
+
+
+    Other methods
+        https://www.w3schools.com/python/python_ref_dictionary.asp
+
+
+
+
+
+Loops and Dictionaries
+
+    For loops through dictionaries, 
+        Dictionaries are also iterable, when we iterate through a dictionary the iterator is each of the keys of the dictonary, 
+        
+        ex
+            my_dict = { "name": "Noelle", "language": "Python" }
+            for each_key in my_dict:
+                print(each_key)
+            # output: name, language
+
+        in this example, each_key stands in place for I its the same as iterating through a list
+
+
+        That means if we want the values in the dictonary, then we need to do something simimlar but diffrent
+
+        ex
+            my_dict = { "name": "Noelle", "language": "Python" }
+            for each_key in my_dict:
+                print(my_dict[each_key])
+            # output: Noelle, Python
+
+        you put the [] around the same each_key (also i) after the name of the list with the nested dictonary, it will print the value of each "index" even though dictonarys dont have indexes, the syntax is similar, so were just going to go with that
+
+
+    Dictonarys also have a few additoinal methods that allow us to iterate throug hthem and have the keys and or values as the iterator, 
+
+    capitals = {"Washington":"Olympia","California":"Sacramento","Idaho":"Boise","Illinois":"Springfield","Texas":"Austin","Oklahoma":"Oklahoma City","Virginia":"Richmond"}
+
+    This one targets the keys in the dictonary with the .key
+        # another way to iterate through the keys
+        for key in capitals.keys():
+            print(key)
+        # output: Washington, California, Idaho, Illinois, Texas, Oklahoma, Virginia
+
+    this one targets the values in the dictonary with .values
+        #to iterate through the values
+        for val in capitals.values():
+            print(val)
+        # output: Olympia, Sacramento, Boise, Springfield, Austin, Oklahoma City, Richmond
+
+
+    This one goes through the keys and values in the dictonary, it looks like val and key are both reserved words. 
+        #to iterate through both keys and values
+        for key, val in capitals.items():
+            print(key, " = ", val)
+        # output: Washington = Olympia, California = Sacramento, Idaho = Boise, etc
+
+
+
+Nesting-Something I will Master!!
+
+    nesting is also allowed in dictionaries, in other words, dictonarys may contain lists and tuples as wel las other dictonaires, like wise lists may contain dictionaries, all of theaes may be many levels deep.
+
+    ex
+        # List of dictionaries
+        users = [
+            {"first": "Ada", "last": "Lovelace"}, # index 0
+            {"first": "Alan", "last": "Turing"}, # index 1
+            {"first": "Eric", "last": "Idle"} # index 2
+        ]
+        # Dictionary of lists
+        resume_data = {
+            #        	     0           1           2
+            "skills": ["front-end", "back-end", "database"],
+            #                0           1
+            "languages": ["Python", "JavaScript"],
+            #                0              1
+            "hobbies":["rock climbing", "knitting"]
+        }
+
+
+Accessing Values in Nested Dictionaries
+
+    To access a value in a nested data strucutre take a look at how yo uwould access the first users last name, 
+
+        print(users[0]["last"]) # prints Lovelace
+
+    lets break this down
+
+    first, the users[0] is the whole user dictionary stored at index 0, next you find the value stored at the key labled 'last', where we finally get the raw value "Lovelace"
+
+
+    Pay close attention to which kind of brackets that im seeing in the nested strucutre, if it starts with { then its the start of a dictonray and ill need a key to access something one level fruther into it, if it starts with [ then its a list and ill need an index to go one level furthe rinto it, so if its a [] with a dictonary in it, ill still need to use keys, until i get into the dictonary, then and only once im into the dictonary can i use the keys. 
+
+
+so when we access the index of a list we use [num] when we access the dictonary we use ['string'] (which is the name of the key,)
+
+i should be able to complete the next challenge!! i feel much better about it now. 

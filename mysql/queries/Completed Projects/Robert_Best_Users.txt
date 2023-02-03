@@ -1,0 +1,18 @@
+SELECT `full_name` FROM `names`.`names`;
+INSERT INTO 'full_name' VALUES ('Robert Best');
+INSERT INTO `names`.`names`
+(`full_name`)
+VALUES
+("Robert Best");
+INSERT INTO `names`.`names`
+(`full_name`)
+VALUES
+("Harder Than");
+INSERT INTO `names`.`names`
+(`full_name`)
+VALUES
+("I Thought");
+SELECT * FROM `names`.`names`;
+
+
+So this was challenging but not, i used the functionality of my sql to just click the column to copy the right syntax because it was giving me really hard time, but after that i just embraced a way to do it and it was simpler. 

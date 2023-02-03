@@ -1,0 +1,100 @@
+
+
+Lecture 9/27
+    When asking for help, use screen shots, show the error code, send the code that your usuing, and what youve done to troubleshoot the issue. @ the channel because it will ping everyone. Try to help people solve the problem, even if you dont know the answer, by doing that it helps you grow and learn. 
+
+    talking to people, solving problems, and having a depth of understanding will get you the job.
+
+    Python tutor is a great place to see where the errors are and the iterations that are throwing errors in a for loop
+
+    if something in python is written in all caps ie NAME its a constant which means it should never be changed
+
+    isCoder - something that starts with a an 'is' then its going to be a boolean ie true or false 
+
+    Python naming conventions https://peps.python.org/pep-0008/#naming-conventions
+
+    never use the naming convention id alone its way to vauge because theres no way to discern what it links to. always add user_id or something like that. 
+
+    link to the guy who wrote the book on clean code and naming convention. https://www.youtube.com/playlist?list=PLUxszVpqZTNShoypLQW9a4dEcffsoZT4k 
+
+    if you add a boolean value to a number in the print, then you can add it to something, the false is a 0 the true is a 1, thus
+        true + 37 = 38 and false + 37 = 37
+
+    control enter will get you to beginging of the next line when your in the middle of another line 
+
+    if you want to print the last number in a list, you can type in print([-1]) or any negative number unless its greater than the array. 
+
+    out of bounds errors will be common after week five, if index out of bounds happens when we get a ask to print([0]) then it means our list dosent have anything in it.
+
+
+Dictonaries
+    list of ordered pairs so an overall idea, followed by things that go with the overall subject their key value pairs, the key is the first thing, the value is what is followed by the : whatever is the key must be a string, 
+
+    ex
+        washingtonian = {
+            'name' : 'Robert'
+            'age' : 30
+
+        }
+
+
+    to print things in a dictonary, you use the dictinary name followed by the item in [''] 
+        ex 
+            print(washingtonian['name'])
+
+    to quickly put "" or {} or [] or anything else highlight the item and then hit the button. 
+
+    to target something bracketed inside of the array, watch the video about an hour in lol theres alotttt to explain it, but its simple overall
+
+    dictonaries and objects are not ordered their just keys and values, 
+
+    the diffrence between a list and a tuple is the brackets lists have [] tuples have () it makes it immutable. if you need to reuse the information then copy it then reuse the information. you can also write a tuple with simply the '', without the ()
+
+    gear things for the fastest human comprehension, 
+
+    if you make a list inside of the tuple you can edit the list inside of the tuple, because the tuple is holding the array but not the memory of the string
+
+    variables should communicate what it is or what it does 
+
+
+    remember the tripple quotes ''' for printing when you have ' and " in a print, use an fstring when your using string concatanation, and when you need to use strings over multiple lines also use the ''' like you would use {} in a function 
+
+
+
+
+Lecture Office Hours 9/28
+    labeling print statments in python  
+        print(f"label: {what you want printed}")
+
+    What is dry code? Dry code is when you dont repeate yourself
+
+    sites to practice your algos. LeetCode, HackerRank, CodeWars
+    educational resources, python tutor, visual algo. 
+        https://visualgo.net/en/list?slide=2-5
+
+        https://www.freecodecamp.org/news/the-most-popular-coding-challenge-websites/
+
+    Traceback errors help you to find where the issue occured, 
+
+    psudo coding is writing out some code? that will help you to understand what it is you want to do. sometimes it helps you to write it out in plain english what you want the algorythem to do. 
+
+    when creating a new algo add in print statments after you add in a new variable or function, ensuring that your code is working piece by piece, Its better to spread out your algos instead of condensing them down into a single line, it alows for better readability as well as comments for other developers to understand what your doing. 
+
+    the shortest line of code may not be the best solution, beings that people may have a harder time reading it. a larger code that is easy to understand may be better for the developers depending upon your team. 
+
+
+Lecture 9/28
+
+    When starting a function, we first use def to define the function, then we state the function then list the paramater afterwards
+        ex 
+            def name_of_function(paramater)
+
+    == are a comparative operator instead of a = which assigns something
+    
+
+Lecture Office Hour 9/29
+
+    Free web book on python automation as well as a few others, good material to have. 
+        https://automatetheboringstuff.com/
+
+    The order that you apply arguments matters, if you want to print a function with two arguments, when printing those arguments, you will need to put them in the same order, unless you spesificy what the argument equals with = in the function,

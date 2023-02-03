@@ -1,0 +1,21 @@
+
+
+Left Join
+
+    in addtion to the basic join also known as inner join, there are many other types of joins that you can do in sql. however you can make any web applicaiton usuing only join and left join, this is why we only really learn left join and join, only after you have masterd left join should i work to move onto additonal joins we are joining the tables, starting from left to right, gluing each table based on the primary id and the foreign key, this is why we set up relationships so we can do left joings and create customied tables when we need them. 
+
+    Join and left join are very similar, left join will include all the records from the first table, the left one, regardless of wheter that record has a matching foreign key in the right table but join will only include the intersection of the two tables, 
+
+Self Join 
+
+    A self join is uses a many to many relationship, but its usuing the same table twice, we can get arround issues that this would cause by using the AS feature/function? because it lets us join the same table twice by providing the SQL with anothe rvariable to refrence the table that is getting joined in. This uses a many to many relationship, but the two rows that have the relationship happen to be of the same type, we could create another table and rename it but it would be redudant as it would simply be copying information which defeats the purpose of a SQL so we do a self join instead. 
+
+        ex 
+            SELECT users.first_name AS followed, users2.first_name AS follower
+            FROM users
+            LEFT JOIN follows
+            ON users.id = follows.followed_id
+            LEFT JOIN users AS users2
+            ON users2.id = follows.follower_id
+            WHERE users.id = 1;
+

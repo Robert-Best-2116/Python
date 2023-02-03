@@ -1,0 +1,398 @@
+
+
+Object Orented Programming Overview
+
+    OOP is used to save time, by helping you to avoid repeating code that solves the same simple problem, like functions, which makes making code maitenance easy. understanding oop principles is key to making code more organized and modular, each type of thing, or object, has its own properties and functinoality associated with it. the grouping of properties and functionalities by object is a key principle of OOP and is implemented with classes
+
+    Classes are blueprints for an object, it has two parts, attributes, what it can have, and methods, what it can do. when you use the blueprint class you can create diffrent instances and diffrent objects. which are interchangeable terms, you can make attributes and methods that are private to the class, meaning they can no longer be accessed by the instance. by default, all attributesand methods are public and avaiaible to each instance. 
+
+    you can apply a special method called a construtor, that will run when a new instance is created. their are also methods called destrutor, that run when the object/instance is removed from memory. 
+
+    new classes can inherit the class information from previous classes, meaning it will take in all the attributes and methods that the parent class has. and have its own attributes and methods. private methods or attributes will not be inherited by default, but you can apply a property called protected that will pass the private methods or attributes to be passed to the child classes.  
+
+    classes look like this
+        class Class_name(the class name is always capitalized) :
+
+    reflection questions. 
+        i learend to ask for help from the previous challenges, and what made me feel proud was figuring out how to use the for loops in python earler. 
+
+
+Classes-Overview
+
+    Whenever we declare a vairiable, we are creating an instance of a class, so a type of class, for example x = [1, 2, 3] is an instance of a list, an instance/object, is simeply something that follows the pattern defined by its class. 
+
+    Think of classes as bluprints for custom objects, they arnt the actuall object, but there a sketch of what we want the final painting to be, so like a study,  it has an outline for the proprties and functions that they may habe, and we can create custom objects to suit the need of our web applications. 
+
+    Consindering the example of a custom clas we would need for a banking application, beings that almost all applications revolve around users, they should define a user class, which is the information we need about a user. the information required is diffrent depending on the type of application we are creating, for a banking application we would set the standard for what the user needs for our website. this insures consistant createion of User instances/objects 
+
+    example syntax for creating a class for User 
+
+        class User:
+    
+    this is an example of how we create a new instance/object of our class
+
+        michael = User()
+        anna = User()
+
+
+    we build out our classes with 
+        Attributes- Characteristics shared by all instances of the class type.
+        Methods- Actions that an object can perform
+
+
+
+Construtor & Attributes
+
+    The Construtor
+        Whenever you sign up for an account on a website your information as a user is saved to a database, beings that we want all of the users to have the same pieces of information, first name last name, etc, its good practice to have a uniform way to always include that data whenever a user is created, much like filling out a form at the doctors office 
+
+        for this we will use a construtor, a construtor is a function that contains the instuctors for making a new instance of the class. the Construtor is the base template for all users. in python we do this with a special function called the __init__ method, the __ is two _ _ when this method is called it will designate space in the memory to store the user. it will then assign the first name, last name and other paramaters, by executing hte lines below
+
+        Construtor example
+
+            # declare a class and give it name User
+            class User:		
+                def __init__(self):
+                    self.first_name = firstName
+                    self.last_name = lastName
+                    self.age = age
+
+        -Note- the term Method is refrencing a function that is specifically belongs to a class, in  other words, functions that are defined inside the scope (nested) inside of a class definintion. in the above example we only have one method, the __init__ method.
+
+    
+    Making Instances
+
+        By defining the User class, weve in effect defined a new data type, User. In the same way we create diffrent lists or dictonaries, we can create and store many diffrent users, we said that the __init__ method creates a user. but when and how does this method get called to create new users???
+
+
+    User() 
+        to create and store a new instance you use the syntax (write it out) like this Class_Name() to create and store a new instance of the class. in this case User() makes and saves a new user in the memory, but i will need a variable to store it, for hte majority of object instances youl create them outside of the class definition, in the outer or global scope, ie outside of the class
+         
+        example
+            class User:		
+                def __init__(self):
+                    self.first_name = "Ada"
+                    self.last_name = "Lovelace"
+                    self.age = 42
+            # Now that you have a class set up with a constructor 
+            # You can assign new variables to new users in the outer scope!
+            user_ada = User()
+            print(user_ada.first_name) # prints Ada
+
+        This is kindof a shitty example because regardless of the user itll always equal ada lovelace 42, theres no real information being passed through to this instance of the class. no matter the user or information presented itll always be ada love lace, even if its bob, or jeff, 
+
+        In this example were storing two strings, "ada" and "lovelace" and one int 42 you can access the information as seen in the print by first providing the variable in this case user_ada, then providing the attrbute that you want to call in this case .first_name, youl access the attributes in classes with . notation. 
+
+
+    Into to Self 
+
+        Essentitally "self" is a placeholder for future instances, (furure data types that use the same class), it is used to create the blank form, (the format for the construtor), to go further into our doctor analogy, the __init__ method is called, which is like the paitent handing the clipboard the receptionist. the Self variable is refering to the user_ada, this step is the paitent writing her name or paitent number into the proper section in the form. if you create another variable that is going to use the same class, ex user_2 = class, the constro is called again, but this time the self variable inside the constor will refer to user_2 much like a diffrent patitent handing in their form. 
+
+        ex
+            user_2 = User()
+            print(user_2.first_name) # also prints Ada
+
+
+
+
+Setting Attributes
+
+    practice building attributes for a class named shoe. we want the shoe to have a brand, type, price and status of in stock, 
+
+    the instance attribute are defined in the constutor, thats the __init__ method, which is used when creating the template for the class. which is called when a new instace(object) is added to the class. 
+
+    example of a shoe constructor/blueprint
+
+        class Shoe:		
+            def __init__(self):
+                self.brand = "Vans"
+                self.type = "Classic Sk8-Hi"
+                self.price = 69.99
+                self.in_stock = True
+
+    once again i dont like this because instead of raw information it forces every shoe to be a vans effect
+
+    the first paramater of an instance method (__init__) is going to be class, and the instance attributes are also defined by the self.  self is a refrence to the instance, but not the class. so its tied to the "key not key" of the class. the self is a refrence to the instance not the class in its entirety. 
+
+    
+    now were going to create instances of a the class Shoe which we do outside the scope of the class definition 
+
+        skater_shoe = Shoe()
+        dress_shoe = Shoe()
+        # Accessing the instance's attributes
+        print(skater_shoe.type) # Classic Sk8-Hi
+        print(dress_shoe.type)	# Classic Sk8-Hi
+
+    despite being diffrent shoes, there all classic sk8 hi becaues of the type being presented in the class
+
+    we can also set values for our shoes instaceobject attributes 
+
+        skater_shoe.type = "Low-top Trainers"
+        print(skater_shoe.type)
+        # output: Low-top Trainers
+        dress_shoe.type = "Ballet Flats"
+        print(dress_shoe.type)
+        # output: Ballet Flats
+
+    this is just applying a string to the value of skater_shoe.type which replaces the string in the self.type in the constructor/blueprint 
+
+
+
+Passing the Argument
+
+    we want all of our shoes to have a brand, type price and status, but we dont want all of our shoes to be the same upon creation. this is where we get to how things should actually be formatted for use. 
+
+    in this example, the shoe has four attributes, but we will only require input for three of them, because in stock will have its own value presnted, (true), so when a shoe instace/object is created, we should expect to recieve the specific values for the brand type and price, but we are assuming that all of the shoes are in stock. the following code has been adjusted to allow for aguments to be passed in upon the creation of an shoe instace/object so that it can be customized. 
+
+        class Shoe:
+            # now our method has 4 parameters (including self)!
+            def __init__(self, brand, shoe_type, price):
+                # we assign them accordingly
+                self.brand = brand
+                self.type = shoe_type
+                self.price = price
+                # the status is set to True by default
+                self.in_stock = True
+        skater_shoe = Shoe("Vans", "Low-top Trainers", 59.99)
+        dress_shoe = Shoe("Jack & Jill Bootery", "Ballet Flats", 29.99)
+        print(skater_shoe.type)	# output: Low-top Trainers
+        print(dress_shoe.type)	# output: Ballet Flats
+
+
+
+
+Methods
+
+    Methods add functinoality to a class. Methods are simply functions that belong to a class, meaning they cant be called independelty from the class, they must be called from an instance of a class
+
+
+    for example if we want to ge ta custom greeting for users, we want to be able to call the method from the user intance usuing . notation, because each user has a diffrent name making the call is spesific to each user. 
+
+    ex for making the call for a user named adrien
+
+        adrien.greeting()
+
+    for this to work it will need to exzist inside of the class for users. following is an example of a class User that has the built in method for greeting() 
+
+        class User:		# here's what we have so far
+            def __init__(self, name, email):
+                self.name = name
+                self.email = email
+            # adding the greeting method
+            def greeting(self):
+                print(f"Hello, my name is {self.name}")
+
+    this class User has the blueprint for all users as well as a method (function for a class) built in, but no user. 
+
+    now were going to call it after we instance in a user. 
+
+        adrien = User("Adrien", "adion@codingdojo.com")
+        cool_person = User("Sadie", "sflick@codingdojo.com")
+            
+        adrien.greeting()
+        # prints Hello, my name is Adrien
+            
+        cool_person.greeting()
+        # prints Hello, my name is Sadie
+
+
+Self 
+
+    The self paramater includes all the informatio nabout the indivudal object that has called the method, how is it passed in? who konws, lol, based on the signiture for the __init__ method it requires 3 arguments, one being the self, becaues it referes to everything inside of the class blueprint/template whatever they want t ocal it. so when we call on the class we only pass in two arguments, likewise the greeting method requires one argument, but we can call it with no arguments, why? because we are calling on the method from the instace. so inside of the class its self?? this is known as the implicit psssage of self, when we call on a method from an instace, the memory address of that instance, along with all ofits information, is passed in as self. 
+
+
+
+Methods and Updating Attributes. 
+
+    Eariler, we discused how to create new kinds of shoes with custom attributes, and change the attributes in the global scope (so outside of the class) Now we are going to look at some other things we want our application to do. such as go on sale, add tax, cut the price, and increase the price. 
+
+    Couldent we do this without methods? yes of course, but then we would have very wet code. if we dident write any methods, and just hard coded in every change it would look something like this
+
+        skater_shoe.price = skater_shoe.price * (1 - .20) 
+        for a twenty percent discount
+
+
+    Idealy we would want to create a method that could repeat this code over and over again without me rewriting it. so in essence a function inside of a class so an example of how we would create that function follows (method)
+
+        def on_sale_by_percent(self, percent_off): 
+            self.price = self.price * (1 - percent_off)
+
+    when wrighting a method (function inside of a class) you will always have to use the paramater self, in the () so it knows what your refering too 
+
+    
+
+Chanining Methods
+
+    Chanining is a way to create dryer code by not having to type out the new instane/object of a class repededly. inorder for it to work, each method must return self. by returning self each method call will be equal to the instance that called it. it means that the information then becomes self contained inside of the method(function) and will then be accessable via it being called in a chain. 
+
+
+
+Class and Static Methods
+
+    Class VS Instance!!
+        So far weve started to designate instance attributes inside the constructor (object attributes and functions inside of classes) however we can also declare and set attributes that dont belong to a single instance/object but to the class itsself, likewise normally when we create a method/function on a class we pass in self to refer to the instance of the objec. thease normal methods/functions are referred to as instance methods, but there are other types of methods we can implement on the class, methods(functions) that belong to the class and not the instance(object)
+
+    Class Attributes
+        Class attributes are defined outside of any instance methods and are shared among all the instances of the class. 
+
+        example of class attribute
+            class BankAccount:
+                # Declaring a class attribute
+                # Shared among all bank accounts
+                bank_name = "First National Dojo"		
+                
+                def __init__(self, int_rate, balance):
+                    self.int_rate = int_rate
+                    self.balance = balance
+
+        The bank name is the class attrbute
+
+        Class attributes can be changed in instance or for the entire class. 
+
+            adriensAccount = BankAccount()
+            sadiesAccount = BankAccount()
+            adriensAccount.bank_name = "Dojo Credit Union"
+                
+            print(adriensAccount.bank_name)
+            # output: Dojo Credit Union
+                
+            print(sadiesAccount.bank_name)
+            # output: First National Dojo
+
+        in this example, the attributes have been changed for adriens bank account after it was assigned the class of bank account to "dojo credit union" they did that with the adriensAccount.bank_name (because thats the assignment in the bank account class) to = dojo credit union. 
+
+        we can also change them on the entire class.
+
+             BankAccount.bank_name = "Bank of Dojo"
+    
+            print(adriensAccount.bank_name)
+            # output: Bank of Dojo
+                
+            print(sadiesAccount.bank_name)
+            # output: Bank of Dojo
+
+        Here what they did was change the attribute in the bank account class to = "bank of dojo"
+
+    
+    @classmethod
+        Class Methods (or class functions) are defined with the @ symbol. its used to show that the entire class is being affected by the method. instead of passing self into the method/function like we do with instace/object methods/functions, we pass in cls, which shows that its refrencing the entire class. 
+
+            class BankAccount:
+                # class attributes
+                bank_name = "First National Dojo"
+                # new class attribute - a list of all the accounts!
+                all_accounts = []
+                
+                def __init__(self, int_rate,balance):
+                    self.int_rate = int_rate
+                    self.balance = balance
+                    BankAccount.all_accounts.append(self)
+
+                # class method to change the name of the bank
+                @classmethod
+                def change_bank_name(cls,name):
+                    cls.bank_name = name
+                # class method to get balance of all accounts
+
+                @classmethod
+                def all_balances(cls):
+                    sum = 0
+                    # we use cls to refer to the class
+                    for account in cls.all_accounts:
+                        sum += account.balance
+                    return sum
+
+
+        Lets see if how i break this down, there are two class attributes called bank_name and all_accounts, so all instances that are classes will inherit those two attributes, the method/function is for instrest rates and balances and it will append (add) its information to the all accounts list that all bank account classes have. the first class method, changes the bank name to whatever is supplied by the instance/object, the second class method, provides a variable sum = to 0 as a base amount, then provides a for loop that goes through the accounts in the class function all_accounts: and adds up the sum of all of the accounts in the list and adds the sum and saves the amount to the sum to give a total running amount in the bank accounts. 
+
+        -Note, the class methods have no access to the instance attributes or any attribute that starts with self. so the only reason the class method can access the accounts is because they have been appended to the all_accounts list.
+
+
+Static Methods
+
+    static methods are functions defineid within the class with the dector @staticmethod. they have no access on instance or class attributes, so if they require any exisiting values they need to be passed in as arguments. 
+
+    So if we weant our bankaccount class to have a utility function to add or subtract we could implement a @staticmethod on the class
+
+        class BankAccount:
+            # class attributes
+            bank_name = "First National Dojo"
+            # new class attribute - a list of all the accounts!
+            all_accounts = []
+                
+            def __init__(self, int_rate,balance):
+                self.int_rate = int_rate
+                self.balance = balance
+                BankAccount.all_accounts.append(self)
+
+            # static methods have no access to any attribute
+            # only to what is passed into it
+            @staticmethod
+            def can_withdraw(balance,amount):
+                if (balance - amount) < 0:
+                    return False
+                else:
+                    return True
+
+            def with_draw(self,amount):
+                # we can use the static method here to evaluate
+                # if we can with draw the funds without going negative
+                if BankAccount.can_withdraw(self.balance,amount):
+                    self.balance -= amount
+                else:
+                    print("Insufficient Funds")
+                return self
+
+
+
+        So parceling this out, the first function, allows us to withdraw from the bank account by doing a check on the BankAccount with the static method, which i dont like the placement of because the method is below the function thats calling on it. but it says if the function .can_withdraw, will work if the balance of the objects balance thus the self.balance, is -= equal or less than the amount being withdrawn, if not then it prints the statment insufficent funds
+        
+        the @staticmethod is a function called can_withdraw, which uses the arguments balance and amount, if the balance subtract the amount is less than zero, the function will return false, if it returns as true, then the function will withdraw. im curious to see how this would run with the boolean in it, which if its returning false. if theres not sufficent funds in there, i would assume that the check in it would stop the function, but quick googling says it does not. intresting why put it in then. 
+
+
+    the reason for usuing static methods is because it organizes the code clearer and alows for scale, if we did not use the @static method then we would have t oupdate everywhere we are making that evaulation, but wehn its placed in a sattic method we can update all the checks from one place alowing our code to be a bit more dry(dont repeate yourself)
+
+    reflection questions
+        how do i describe the diffrence between static and class methods?? 
+            well class methods are functions that affect every object inside of the class, static methods only work when called upon, much like regular methods, the diffrence seeming that they dont have access to any instance or class attributes, so there totaly isolated. but can use the information if its passed in. seems redudant to me. 
+
+        who to turn to if i get stuck in oop? 
+            class mates first, then google, well google first, then class mates, then tas then well well figure it out after that. 
+
+
+
+Association Between Classes
+
+    Relationships between classes is considered an associaton between the two classes. A user has a bank account, so one class has another class, that means instead of keeping track of a balance directley in the users class well encapsulate all the bank account informaiton and assocate a user with a spesific instance(object) of a bank account. 
+
+    to keep things simple well assume each user only has one bank account which starts at zero, at has a 2% intrest rate, that means the User class instead of directley having a balance attribute will have an attribute of the bank account type, to establish this relationship we can update our Users __init__ method (the blueprint) to something like this. 
+
+        class User:
+            def __init__(self, name, email):
+                self.name = name
+                self.email = email
+                self.account = BankAccount(int_rate=0.02, balance=0)	# added this line
+
+        -Note, they need to be in the same folder unless they are linked via an import. also kown as modularization, 
+
+    We interact wit this new attribute just as we would any other attributes, the only diffrence is that we have personally definied the functionality of the class. we know the attributes and methods avlaible to the account by looking at our bank accounts class.
+
+
+        class User:
+            def example_method(self):
+                # we can call the BankAccount instance's methods
+                self.account.deposit(100)
+                # or access its attributes
+                print(self.account.balance)
+
+    
+    so deconstruct time, the user class can use the same . notation to access the functions/methods of the bank account class, which is fucking helpful, way dryer code. 
+
+    reflection questions
+
+    Besides users and accounts what other ways can yo usee where classes would need to be assocated? 
+
+        honestly any other type of data that requires assocation, if theres a user for something, whatever there usuing and whatever it does is going to need to be assocated. 
+
+
+

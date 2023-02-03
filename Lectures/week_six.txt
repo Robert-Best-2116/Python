@@ -1,0 +1,52 @@
+
+
+Once again another class
+
+lecture on valadations 
+
+    https://login.codingdojo.com/m/506/9089/97904
+
+    lectures 
+
+        https://www.youtube.com/playlist?list=PLCeXYIeD4OU4sRcdQ0VxAGTk9KPWjXpWC
+
+
+Black Belt Overview
+
+    send in the ERD file, so the table make up for the database. 
+
+    orange belt-exam completed in over five hours
+    red belt- exam completed in under five hours proper amount of points
+    black belt- exam completed in under five hours, fully impelemented black belt wireframe, deployed within 24 hours.
+
+    Preperation
+
+        user is stored and tracked with session, most frequently docked. 
+        class association, if classes do not have the ability to instanciate instances of diffrent class, ie, iterating the ninjas through to the dojos. 
+
+
+        going into the exam, we should absoultey have a fully modjularized login and registration assignment, as well as having the database to go along with it. 
+
+        if there is something you find yourself consistantly doing, create a place holder, ie controllers & models. config. set it all up ahead of time.
+
+        have the comments preset so its easily readable before you go in.
+
+        have a crud formation already set up with the controllers and models, all you need to do is swap out the code. 
+
+        do not leave code that is commented out unless they are functional then leave them. 
+
+    
+    Step 1 Start with the database, and ERD, forward enginer it, then go into mysql workbench in the local instance, and write querys that test the database. full CRUD test. test your joins. also alows you to fill your database, so theres no need to set up information in the template
+
+    step 2 set up all the routes etcs, test as you build page flows. always be testing. 
+
+
+Lecture 11/3
+
+    The thing to focus on with validation is to not query the database unless you know you have the correct information to run the query. 
+
+
+    not sure what this is for :D but they shared it 
+    https://www.w3schools.com/python/ref_dictionary_get.asp
+
+    

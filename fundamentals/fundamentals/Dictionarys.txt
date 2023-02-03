@@ -1,0 +1,34 @@
+
+
+Dictionary
+    a Dictionary is a changeable sequence type that can store any number of python objects, including other sequence types lists and the like. Dictionarys go by a couple other names, such as associative array, or hash table, a hash table is the most generic term. 
+
+    Dictionary Characteristics
+        its an unordered collectoin of objects
+        values are accessed usuing a key, usually a string
+        dictonarys can grow or shrink 
+        their contents can be modififed,
+        they can be nested inside of other Dictionarys 
+        sequence operations like slice cant be used in dictonarys
+
+    Keys Vs Indexes
+        Instead of usuing indexes like a list would do dictonarys use Keys to track position, whats the diffrence we ask?
+            keys are usually strings, indexes are always integers
+            keys can be in anyyy order, they are not stored in order.  indexes are orered, least to greatest, (lists and tuples)
+            Dictionarys only have keys, They dont have indexes
+
+    Creating Dictionarys 
+        Creating a dictonary is pretty much just like creating any other dequence, they use the same format, name = but they use {} instead of () or [] 
+
+        #literal notation
+        person = {"first": "Ada", "last": "Lovelace", "age": 42, "is_organ_donor": True}
+        capitals = {} #create an empty dictionary
+
+    Adding new key-value pairs
+        ditionarys do not have an append feature, like lists which i love. you add new key-value pairs much like creating a new variabile
+
+            dictionary_name["key"] = "value"
+
+            whalla new addition the dictonary
+
+        

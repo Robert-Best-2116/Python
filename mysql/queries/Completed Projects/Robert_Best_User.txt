@@ -1,0 +1,35 @@
+SELECT `users`.`Id`,
+    `users`.`first_name`,
+    `users`.`last_name`,
+    `users`.`email`,
+    `users`.`created_at`,
+    `users`.`updated_at`
+FROM `users`.`users`;
+SELECT * FROM `users`.`users`;
+SELECT * FROM `users`.`users`
+WHERE email = email;
+SELECT * FROM `users`.`users`
+WHERE id = 3;
+INSERT INTO `users`.`users`
+(`last_name`)
+VALUES
+('Pancakes')
+WHERE id = 3;
+SELECT * FROM users;
+UPDATE last_name SET
+last_name = 'Pancakes'
+WHERE id = 3;
+SELECT * FROM users;
+UPDATE `users`.`users`
+SET
+`last_name` = 'Pancakes'
+WHERE id = 3;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM users WHERE id = 2;
+SELECT * FROM users
+ORDER BY first_name;
+SELECT * FROM users
+ORDER BY first_name DESC;
+
+
+So this one was better, some of the same issues with not allowing me to select the last name table, even though im in the users schema not sure why it kept hitting me with does not exist. when other columns worked fine. 

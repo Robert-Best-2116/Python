@@ -1,0 +1,371 @@
+Overview
+
+    Adding a database to your application is very simple, but extremley powerful, weve seen how we can get information posted from a form and leanred how tet sesion variables. now we are going to learn how to put that information into our database and use ssession variables to a log a user in! with the database in the mix we can now start to make our content dynamically change based on a particular user or condition. 
+
+    To be able to connect our Flask applications to a database were going to need a package to help us. were going to use one called PyMySQL in the proejct level run the following ocmmand in your command line to start a new projects
+
+        pipenv install PyMySQL flask
+
+    We have to have both of those files to make it work. 
+
+
+
+Connecting To a Database 
+
+    1. First we need the database, to connect to, after creating it it may be a good idea to seed the database with a few entrys
+
+    2. well want to have our porject folder, in addition to the server.py file well also need a connection.py file, for this session its named mysqlconnection.py but thats a mouthfull, it seems it can be in the same file at the moment as the server.py file, but i feel like thats not good practice, the template is saved in the connecting to the database text file. 
+
+    3. then we need to create a new file named after the table we are accessing in the connection file. it needs to use OOP to create a class that is modled after our file, so it will need to look something like this
+
+        class Friend:
+            def __init__( self , data ):
+                self.id = data['id']
+                self.first_name = data['first_name']
+                self.last_name = data['last_name']
+                self.occupation = data['occupation']
+                self.created_at = data['created_at']
+                self.updated_at = data['updated_at']
+            # Now we use class methods to query our database
+            @classmethod
+            def get_all(cls):
+                query = "SELECT * FROM friends;"
+                # make sure to call the connectToMySQL function with the schema you are targeting.
+                results = connectToMySQL('first_flask').query_db(query)
+                # Create an empty list to append our instances of friends
+                friends = []
+                # Iterate over the db results and create instances of friends with cls.
+                for friend in results:
+                    friends.append( cls(friend) )
+                return friends
+
+    See how all of the self. parts of the code reflect the name of the rows in the table. 
+
+        -Note- we will always need to import this information with the following line. 
+            from mysqlconnection import connectToMySQL
+        It ensures that we have access to the database. inside the secion where the results = you will need to have the name of the database you wish to access, we named it first flask, so thus its accessing that one, im not sure how it goes about it but it does. probabley a built in feature. 
+
+
+    4. now we will need to add i nthe secion of code to our server.py file to import the class and call o nthe class method to query our database.
+
+        from flask import Flask, render_template
+        # import the class from friend.py
+        from friend import Friend
+        app = Flask(__name__)
+        @app.route("/")
+        def index():
+            # call the get all classmethod to get all friends
+            friends = Friend.get_all()
+            print(friends)
+            return render_template("index.html")
+                    
+        if __name__ == "__main__":
+            app.run(debug=True)
+
+    
+    The server is now able to be up and running with the information, this does not include the HTML file to render the information, that is next. 
+
+
+
+Retrieving & Displaying Data 
+    
+    when we visit the root route, we are displaying the information from our friends table. so our logic for our server.py must include the information for fetching all the friends from the database
+
+        @app.route('/')
+        def index():
+            friends = Friend.get_all()
+            print(friends)
+            return render_template("index.html", all_friends = friends)
+
+        -note- see here how we are taking the Friend.get_all MySQL query and turning into a variable called friends, then in the return section we changing the variable to all_friends so essentally the Friend.get_all is the same as all_friends, but its seperated like this probabley for debugging so its easer to find what dosent work in error codes via the unique name. 
+
+    
+    Now to add our HTML template
+
+        <h1>All My Friends</h1>
+        {% for one_friend in all_friends %}
+            <p>First Name: {{one_friend.first_name}}</p>
+            <p>Last Name: {{one_friend.last_name}}</p>
+            <p>Occupation: {{one_friend.occupation}}</p>
+            <hr>
+        {% endfor %}
+
+        Here what were doing is creating a for loop usuing the variable we just created called all_friends, which is our Friend.get_all query, and assining a variable called one_friend for it to iterate through the list with. in the for loop it is going through for each dictonary inside the list, and posting all of the key values that are paried with the key named next to the variable one_friend 
+        so one_friend.first_name, is accessing the dictonary key first_name and printing its value
+
+        we are usuing jinja notation for the {{}} with its variable and functions, super important to remember. 
+
+
+
+Queries with variable Data
+
+    Prepaired Statments, whenever we run a query that includes variables we should use a prepared statment rather than a string interpolation, sooo in enlgihs, usuing strings instead of f-strings, or string concatenation, apparently its a security risk, what this means is that we will need a string variable for the query then a ditonary for the values to be used in the string, when we call o nthe database connection to execute the query, we will pass both the query and the dictonary, like so
+
+        query = "INSERT INTO friends (first_name, last_name, occupation) VALUES ( %(first_name)s, %(last_name)s, %(occupation)s )"
+
+        data = {
+            "first_name" : "Patrick",
+            "last_name" : "Timmy",
+            "occupation" : "Accountant"
+        }
+
+        mysql.query_db(query, data)
+
+        connection to the db- mysql- the instance of the MySQLConnection class
+        Query String- Insert Into, the string that will be eventually executed on our MySQL server
+        Data Dictonray- the values that will be inserted into the query string
+        Data Dictonray Keys -first_flask, last_name, occupation, the keys of the data dictonary used in the query string with the % interpolation, not sure why its like that but thats the format. 
+
+
+SQL Injection
+
+        SQL Injection is where a usuer can inject SQL code into your database/website to get access to information
+
+        A more in depth look at prepared statments, below is an example of a prepared statment
+
+            query = "SELECT * FROM users WHERE email = %(email)s;"
+            data = { 'email' : request.form['email'] }
+            result = mysql.query_db(query, data)
+
+
+        Here we are usuing a prepared statment in order to create our SQL query with data provided by our user. This is done by leaving placeholders in our query that are filled with the values from our data dictonary, the variables/placeholders are the %(email)s, and then in data the 'email' is being turned into a key, for request.form['email'] which is the information we will get from our user. so the email will get passe through the request.form to the email key, as its value, then transfered to the query, or perhaps the other way around. 
+        
+        the reason we create a dictonary for the value instead of usuing a literal string interpolation, to generate our query, is beause people can splice anything into there, including other SQL injections and have access to information their not supposed to like passwords and credit card information. 
+
+
+    Prepared Statments to the Rescue
+
+        By usuing a prepared string, we can be assured that the user input will never be interprted as SQL code. our ussers can type in anything they want and it ownt matter as it will be interprted as a regular string, so a dangerious query will be treated as harmless nonsensical information as our database looks for an impossible email address
+
+
+        there are many ways to protect against SQL injection, including usuing a framework and trusted libraries, The way we currently have PyMySQL set up, we can only run one query at a time, users will therefore not be able to attach extra queries to ours, we can also try to sanitize strings from our post data manually by escaping special characaters with the '/' characater, so we should always stick to running queries by usuing the following pattern anytime user input is concerned. 
+
+
+            query = "SELECT * FROM users WHERE email = %(email)s;"
+                
+            # the placeholder variable is called email
+            # it must match the key name in the data dictionary
+
+                # this 'email' Key in data must be named to match the placeholder in the query.
+            data = {'email' : request.form['email']}
+
+            result = mysql.query_db(query, data)
+
+
+
+
+From Form to Database
+
+    Inorder to retreive the friends on our server.py page, we will go ahead and create the ability to update our friends form. 
+    we will do that with a class method that creates a row in our database.
+
+    The class method is modeled after the table from our database, we add the class method to update our friends list and because of that we are going to use queries that include variables, and thus we need to use prepared statments,
+
+        # import the function that will return an instance of a connection
+        from mysqlconnection import connectToMySQL
+        # model the class after the friend table from our database
+        class Friend:
+            # ... other class methods
+            # class method to save our friend to the database
+            @classmethod
+            def save(cls, data ):
+                query = "INSERT INTO friends ( first_name , last_name , occupation , created_at, updated_at ) VALUES ( %(fname)s , %(lname)s , %(occ)s , NOW() , NOW() );"
+                # data is a dictionary that will be passed into the save method from server.py
+                return connectToMySQL('first_flask').query_db( query, data )
+
+    Next we add the form to our template, its going to be a POST method because we are adding information to our database,
+
+        The form Action section is where we send our information too, thats why it has the /create_friend so the information is passed to the route create_friend on the back end of our website, so our server.py file. 
+    
+            <h1>Add a Friend</h1>
+        <form action="/create_friend" method="POST">
+            <label for="fname">First Name:</label>
+            <input type="text" name="fname">
+            <label for="lname">Last Name:</label>
+            <input type="text" name="lname">
+            <label for="occ" >Occupation:</label>
+            <input type="text" name="occ">
+            <input type="submit" value="Add Friend">
+        </form> 
+    
+    and then we will need to pair that post form with a method on our server.py. it will need to be a request.form inorder to save the method from the friends class. 
+
+            # relevant code snippet from server.py
+        from friend import Friend
+        @app.route('/create_friend', methods=["POST"])
+        def create_friend():
+                # First we make a data dictionary from our request.form coming from our template.
+                # The keys in data need to line up exactly with the variables in our query string.
+            data = {
+                "fname": request.form["fname"],
+                "lname" : request.form["lname"],
+                "occ" : request.form["occ"]
+            }
+                # We pass the data dictionary into the save method from the Friend class.
+            Friend.save(data)
+                # Don't forget to redirect after saving to the database.
+            return redirect('/')
+
+
+    On this bit were making a data dictonary from our request.form comming in from our teplate, the keys in the data need to line up with the variables in our query string, "fname" pairs with the request.form for fname, then we will pass in the method for save data, which we wrote eariler, which has the SQL query in it, also see how we return with a redirect to the root index. we do that because wedont want to end on a post. 
+
+
+Models Views And Controllers
+
+    MVC 
+        Developers who design frameworks have to make decisons about organizing code, one of the most popular patterns for organzing code is one known as MVC : model-View_controler, heres a basic break down
+
+        Model 1 May Build database tables
+              2 Handles logic that relies on data
+              3 interfaces with the database
+
+        View  1 HTML page that gets served to the client
+              2 May contain some logic to be handeled by a template engine
+
+        Controller 1 Recives incomming requests
+                   2 Minimal Logic
+                   3 calls on modeles to agggregate/process data
+                   4 determines the appropreate responce
+
+    
+    Modularizing application
+
+        Some web developerment frameworks combine everything into one large, potentially monsterious file, imagine how much bullshit that would be, usuing the MVC pattern alows us to ourtsource the diffrent kinds of tasts to specific file locations, when we begin a flask progect we will need to create files to play all of the nessisary roles in the web appliacation 
+
+        Routes (expected requests)
+        Functions associatesd with those routes (how our server responds)
+        Database interaction through our Modeles (storing, retreving data from database)
+        Templates (what the user interacts with)
+
+
+    Modulariztion process
+
+        1 create a directory called flask_app
+
+        2 create the __init__.py file inside the folder
+
+        3 insert this code!
+
+            # __init__.py
+            from flask import Flask
+            app = Flask(__name__)
+            app.secret_key = "shhhhhh"
+
+        4 remove those lines from the server.py folder
+        
+        5 add the following line to server.py
+
+            from flask_app import app
+            # ...server.py
+
+        6 move templates folder into the flask_app folder 
+
+        7 move the static folder into the flask_app 
+
+
+    Step 2 Controllers
+
+        1 create congif and controllers folders inside flask_app folder
+        
+        2 move mysqlconnection.py into config folder
+
+        3 create a .py file named after whatever we are controlling in a plural form
+
+        4 move all the app.route functions into the controller file
+
+        5 insert this code into burgers.py
+
+            from flask_app import app
+            from flask import render_template,redirect,request,session,flash
+            from burger import Burger
+
+        6 remove those lines from server.py
+
+        7 in server.py add this line
+
+            from flask_app.controllers import burgers
+
+    
+    Step # Models 
+
+        1 Create models folder inside flask_app folder
+
+        2 Move the burger.py file into the models
+
+        3 change the import statment in burger.py
+
+            from flask_app.config.mysqlconnection
+
+        4 have the controller call the model class method,
+
+        5 update the burger import statment in the controler. 
+
+
+
+One To Many Relationships
+
+    When dealing with either one to many or many to many relationships we know SQL only saves the ID or foreign key in the table on the many side of the relationship. the Foreign key is a primary key of a diffrent table, becasue of this we can display the data that is already saved in the database, that is needed in the relationship
+
+    Let ssay we wanted to relate restaurants to certain burgers. a restraunt can have many burgers, but the burger can only belong to one restraunt, we need to createa class for the restruant a table in our database then associate the burger lass in the retaurant class. 
+
+
+
+Relationships Advanced 
+
+    inorder to create a many to many relationship to for our database we will need to create a middle ground in our ERD that is connected to our primary database. in this case, an add on table, that is conneceted to the toppings, and is also connected to the burgers table which is connected to our resturants table. 
+
+    the relationship: a burger can have many toppings, and a topping can be on many burgers, thus many to many, 
+
+    inorder to associate the data between the burgers and toppings we will need to use two left joins, 
+
+        """SELECT * FROM toppings
+        LEFT JOIN add_ons ON add_ons.topping_id = toppings.id
+        LEFT JOIN burgers ON add_ons.burger_id = burgers.id
+        WHERE toppings.id = %(id)s;"""
+
+
+
+    next we add in a class method into our burger class to associate the two classes together
+
+    The query is also a left join,
+
+    """SELECT * FROM burgers
+    LEFT JOIN add_ons ON add_ons.burger_id = burgers.id
+    LEFT JOIN toppings ON add_ons.topping_id = toppings.id
+    WHERE  burgers.id = %(id)s;"""
+
+        -Note- Common columns that exist on the table will come back from our results with the table name attached. 
+
+
+Circular Imports
+
+    its bad :D, since we are building our application in a modularized strucutre, we need to import files onto others, if we refrenced how we handeled many to many relationships, the two calsses are dependent on each other in order to make those connections. one major issue that we might run into is a circular imports. 
+
+        from flask_app.models.burger import Burger
+        class Topping:
+        ...  
+            @classmethod
+            def get_topping_with_burgers( cls , data ):
+                ...
+                for row_from_db in results:
+                    ...
+                    # This is where the topping class 
+                    # is dependent on the Burger class
+                    topping.on_burgers.append( Burger( burger_data ) )
+
+        from flask_app.models.topping import Topping
+        class Burger:
+            ...
+            @classmethod
+            def get_burger_with_toppings( cls , data ):
+                ...
+                for row_from_db in results:
+                    ...
+                    # This is where the Burger class 
+                    # is dependent on the Topping class
+                    burger.toppings.append( Topping( topping_data ) )
+
+    Thease two are refrencing/dependent upon eachother for their information.  that will cause an error :D 
+    -Import Error- cannot import name "Burger" from 'flask_app.models.burger'
+
+    this is becauseeee we are importing each class into the other and trying to incoke the instaces when relating them together, basicly their both calling on the same information as each other just from diffrent sides. so inorder to fix this issue we need to adjust our code and import the file instead of the classes. 

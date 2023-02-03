@@ -1,0 +1,162 @@
+Lecture Office Hours 10/18
+
+    MVC 
+        Treat the controler like a traffic controller, they arnt getting in your car and driving it, just showing you where to go. 
+        
+    when you get the methods not allowed, be sure to check that the method = post, and that the required file is imported. 
+    have a controler for each model, itll be excessive at first, but itll be good practice for industry standard. 
+
+Code Snippet edditer pieces, 
+    https://code.pieces.app/ 
+
+
+Lecture 10/18
+    Post & Git 
+        the type of import is important, but there will be multiple types, you can use any of the ones weve done in web fund because were doing web fund, but all of them will be saved as strings, usefull to know if we want to edit it whn it happens
+
+        when doing a form with action, the three important things are the action, its the route that will only be a post, it will be the only thing handeling the post request, the method is also really important, it needs to be defined as a method, 
+
+            <form action='/form' method='post'> 
+
+        the next most important part is the name of things, those are the keys, their are the imputs, so that we know what to save in our database. 
+
+    We will get a the method not allowed form before we get the catch all form. 
+
+    to go around that we will need to get around it by getting the information, 
+
+    the reason for creating redirects, which you will need to place redirect in the imports, is to close the window to your database, it also lets the user know that they were successfull in submitting their information, and stops the duplication of information.
+    
+    the information inside of the post method is only temporary unless stored, its alot like a print method inside of a for loop, it only exsists inside of the 
+
+    if you save it to session it ill always be there, you can import it and itll be awesome, you access by saying session inside of the function, and well itll be on the thing 
+
+        session['key_name'] = request.form ['variable used in the form']
+
+        this saves it in the imutable dictonary! for all time.
+
+    if you want to access session data anywhere in the server, you do it pretty much the same way you put it in. session['variable']
+
+
+Lecture Office Hours 10/19
+
+    Building Boilerplates
+
+        Modularzation! taking our single file w/templates and static and branching it out to make it scaleable, as it grows it makes more sence, the basic part is just moving the things we have around, to where they need to be. we start with our boiler plate, create our __init__.py file, we use it in the same way we inintalize our class, we make a class of our app. we take the import from flask, and our secret key, so the basic things, from flask import flask, app = flask(__name__), and our secret key, it all has to be in there. 
+
+
+        so on our server we import our flask app directory. and our app variable.
+            flask_app import app
+
+
+        we make a mainController.py file and then paste all of our app routes inside of there, same import flask_app import app, 
+
+        In our server all that will be there is the @app.route root route, and the catch all, for the path. as well as from flask_app.controllers import mainController. 
+
+        as you add controlers you will have to import them into the flask_app.controllers, and you can chain them into the import mainController 
+
+        The next thing that our modularized app will need is a place for our models, thats where we would put things like user.py, allll of the files are singular because the modules is plurlar, all of theaes names need to be desciptive, so that way its easy to read and know whats going on. 
+
+        the last thing we need is our config folder that will contain our MySQL file, then we create our mysqlDB.py file, that will contain our database!!!!!!
+
+
+        so to recap, we will have our Static, Templates, Controllers, Config, folders, and our __init__.py , all of those things are created inside of the flask_app folder, inside of the boilerplate file, we have our server.py and thats where we create our virtual enviroment. 
+
+
+
+Building it from the beggining
+    
+    Wise idea for creating the boilerplate create your foldername for your boilerplate and put a 0 infront of it. Cameron uses the name, Skeleton, for his folder. I dont really like that, so ill probabley use boilerplate
+
+    step one, create folder,
+    step two, create and launch your virtual enviroment, 
+    step three, make your new folder, flask_app
+    step four, go inside your new folder, create your __init.py file
+    step five, create your controllers, static, templates, models, and config file
+    step six, go inside the static file, and create your css folder and create your style.css file, 
+    step seven, go to your models file and create the user.py file 
+    step eight, go to your controllers file and create your main.py file
+    step nine, go to your templates file and create your index.html file
+
+    Basic Boilerplate outline is created at this point, after that itll need to be filled with the proper content. 
+
+    You can then transfer the folder by going into the primry folder, then cp -rf boilerplate new_project_name
+
+
+
+Lecture 10/19 
+
+    Connecting to the Database!
+        be sure to install your virutal enviroment in your parent directory for your project 
+
+        import pymysql.cursors
+
+        create a class MySQLConnection
+        create an __init__ for the connection, the connection will be connection = pymysql.connect, it will be the same as it is on the platform but your connectoin informatoin for your password and root will need to be what it is on my computer
+
+        youl then create a function inside your class called query_db, with a try catch. be sure to include a exception that will return the error with the exception that went wrong, will go more indepth for it later. 
+
+        outside of the class you will create a def connect(db): with return MySQLConnection(db)
+
+
+
+    Creating our user models, 
+        go inside models for the file user.py. we are going to return our users from our mysql database, 
+
+        step one, make our class, User: 
+        inside class our __init__(self, data):
+        define your class attributes, they will reflect what our database table is, so id, first name, last name, password, email, created at, update at. the format is like so
+            self.id = data['id'], self.first_name = data['first_name'] etc 
+        
+        the reason the keys are the way they are, is because its what the key names will be called at, its easer to keep it all the same, as you refrence the variables later on in the project, to keep it simpler
+
+        In the model then we need to create a method that will access our database but first we will need to write an import that allows us to connect to our database
+        
+            from flask_app.config.mysqlDB import connect 
+
+        standard practice to import the parent object, then import the file then class. 
+
+
+        anywhere we are going to pass in the database, we are going to need to define the database, its easier to import it globaly outside the class
+                mydb = "whatever the file name is in mySQL"
+
+        In the class we are going to create our getall method 
+            def getAll():
+                query = 'SELECT * FROM users'
+                connect(mydb).query_db(query)
+
+                we can return all of this information so that we can be sure that we are getting the proper information that we need
+
+                return connect(mydb).query_db(query)
+
+            (this is a mysql query and this is how we pull allll of the information from our database)
+
+
+    
+    in the mainController.py file we import the flask_app.models import user(s) not sure if theres an s or not. 
+
+    in the @app.route for getting all the information that is where we will import all the data, allUsers = user.Users.getAll() followed by a print statment print(allUsers), it makes debugging alot faster its a mess of shit but its usefull to have. 
+
+    we can do something called  pprint
+
+        from pprint import pprint
+
+    This will make our print satments alot easer to read and cleaner to deal with, it will organize the data diffrently but it will still be in order. we use the print statment just like previously but with a pprint() instead of print()
+
+    you will access the keys the same as you access them in session. 
+
+
+    we will want to use dot notation so its clean and easy to read. if not when we start going deeper and more indepth into the code it will stop it from being so messy, so we will want to turn the users from the database, into objects, so we are going to need to take the class, and insert a class method, @classmethod the reason for usuing this is so that we can import cls and have access to our innit method, we are going to loop through our database and turn them into objects, we are going to need to loop through our database and append a class object, and iterate through each thing inside of our dicontary and add them to the classobject. 
+
+
+
+Lecture 10/20 Office Hour. 
+
+    pretty much bored
+
+Lecture 10/20 
+
+    when running an enviroment inside a new flask app its important for us to remember to create our folders, config, controllers, models, s tatic, templates, and __init.py 
+
+    you can run code . and itll open up your folder configuration inside vs code. 
+
+    its a good idea to name your files with the tail end being the name of the folder its in. 

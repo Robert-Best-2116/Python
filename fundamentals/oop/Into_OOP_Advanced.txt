@@ -1,0 +1,405 @@
+
+
+OOP & Dictonionaries
+
+    Key_Value Pair Data Strucutres
+
+        Dictonaries are the most common way to transfer information from other sources, even from exteranl programs written in diffrent lanaguages, typically in the form of JSON through an API which can be parrsed by python into dictonaries, Dicitonaries are similar to dicontiaries in that dictonaries have unique keys for stored values, and classes have unique attribute names for stored values, they both have access to a many pieces of data through a single entery, they are diffrent in that dictonaries can add new key-value paires to an existing dictonary, its flexable but dosent suit data that should be unfirorm, classes generally cannot add new attributes to an exisiting object instance, they keep data uniform but have very little capacity for non unfirom data, dictonaries can store functions, but not can not inherently share thease functions with othe dictonaries, classes can have instance methods (object functions) that are shared accross all instances. 
+
+    Making Object instances from dictonary Data
+
+    Consider the following Dictonary
+        kevin = {"name": "Kevin Durant", "age":34, "position": "small forward", "team": "Brooklyn Nets"}
+
+    Lets say im reciving data from an external source, like a data base and we wanted to turn this dicctonary data in to a player object so we could write some usefull methods assocated with players. it would look something like this
+
+        class Player:
+            def __init__(self, name, age, position, team):
+                self.name = name
+                self.age = age
+                self.position = position
+                self.team = team
+
+    
+    Now that we have the class created from the information we can take our dictonary info to make a player object
+
+        kevin = {"name": "Kevin Durant", "age":34, "position": "small forward", "team": "Brooklyn Nets"}
+            
+        # Pass in all the values from the dictionary by their keys
+        player_kevin = Player(kevin["name"], kevin["age"], kevin["position"], kevin["team"])
+        print(player_kevin.position) # prints small forward
+
+    
+    Now we have turned the dictonary into a class that we can write functions for. 
+    we could esentally turn the dictonary into an object with some clever typing, though im not going to go into that right now, im barley getting this done
+
+
+    Other facts about dictonaries
+
+        There fast, dictonaries are used commonly for one primary reason, they privde constant-time lookup, insertion and deletion on average, many extreemly common problems are best solved with key-value pair data strucuter (often called a hash table) some examples are dealing with unqiuness of data, frequence of values and finding duppllicates in data sets, 
+
+        other dictionary names
+
+        Python-dictonarys
+        JavaScript/JSON-Objects
+        Java, C++- maps, hash maps
+        C#-Hash Table
+        PHP-Associateive Array 
+
+
+
+The Four Pillars Of OOP
+
+    Benefits of oop, 1 implents D.R.Y. code, 2 makes our application scaleable, 3 makes our code reuseable, 4 makes our applications easily maintainable 
+
+    First Pillar, 
+
+        Encapsulation-Enscapsulation is the idea that we can roup code togethe rinto objects, hence object orented programming, we use calsses or coding blueprints to define what our objects are and how they behave, we encapsulate attributes and methods in our class 
+
+            class CoffeeM:
+                def __init__(self,name):
+                    self.name = name
+                    self.water_temp = 200
+                def brew_now(self,beans):
+                    print(f"Using {beans}!")
+                    print("Brew now brown cow!")
+                def clean(self):
+                    print("Cleaning!")
+
+    Second Pillar
+
+        Inheritance-Inheritance is the idea that we can pass along attributes and methods form one class into a subclass or child class and not have to re-write the code to make it work, chiild classes acan be more specific version sof their parent class usuing thekey word super will call methods
+
+            class CappuccinoM( CoffeeM ):
+                def __init__(self,name):
+                    super().__init__(name)
+                    self.milk = "whole"
+                def make_cappuccino(self,beans):
+                    super().brew_now(beans)
+                    print("Frothy!!!")
+
+
+    Third Pillar
+
+        Polymorphisim-Polymorphisim means many forms, and the idea in OOP is tha tthe child class can have aiffrent version of a method than the parent class, in this class the child class of CappuccinoM has a clean method, and so does CoffeM, depdnging on the class the clean method will do diffrent things. 
+
+            class CappuccinoM( CoffeeM ):
+                def __init__(self,name):
+                    super().__init__(name)
+                    self.milk = "whole"
+                def make_cappuccino(self,beans):
+                    super().brew_now(beans)
+                    print("Frothy!!!")
+                def clean(self):
+                    print("Cleaning the froth!")
+
+
+    Fourth Pillar
+
+        Abstraction-Abstraction is an extention of Encapsulation, and we can hide attributes or methods that a Barista dosent need to know about, like a CoffeM. that way the Barista can make a cup of coffe in a simpler manner
+
+            class Barista:
+                def __init__(self,name):
+                    self.name = name
+                    self.cafe = CoffeeM("Cafe")
+                def make_coffee(self):
+                    self.cafe.brew_now()
+
+Reflection Question
+Now that i know about the four pillars ho wcan my vode change?
+
+    It can allow for alot more complex versions of classes with alot more detail involved. 
+
+
+
+Inheratance
+
+    Another kind of relationship between alsses involves Inheritance, which is defining a new class based upon another class, in other words, it allows one class to take on the atributes and methods from another class with little additional code. this reuse of code results in reduced redundancy and complextiy, which is something developers love. the derivied classes aka child or sub classes can override or extend the functionality of the base classes (parent or super classes) 
+
+    let us consider our bank account class fro mthe previous OOP chapter, what if we told uesrs that they could habe both checking accounts and retirement accounts, ther eare alot of things thease two types of accounts have in common, but there are some attributes and methods that will differ between the two. 
+
+    One way to make a distinction between account types would be to add an attribute of account_type t oour bank account class, in each of our methods we would have a series of conditoinal statments that would determine how the method would actually run. but this can be pretty chunky and hard to manage, 
+
+    if we go the other extreme and just create two seperate classes we would end up with something like this
+
+        class CheckingAccount:
+            def __init__(self, int_rate, balance=0):
+                self.int_rate = int_rate
+                self.balance = balance
+            def deposit(self, amount):
+                # code
+            def withdraw(self, amount):
+                # code
+            def write_check(self, amount):
+                # code
+            def display_account_info(self):
+                # code
+
+        class RetirementAccount:
+            def __init__(self, int_rate, is_roth, balance=0):
+                self.int_rate = int_rate
+                self.balance = balance
+                self.is_roth = is_roth
+            def deposit(self, amount):
+                # code - assess tax if necessary
+            def withdraw(self, amount):
+                # code - assess penalty if necessary
+            def display_account_info(self):
+                # code
+
+
+    alot of the code here is redudant in the class, as well as the methods it would be better to use an inheritance class of the class BankAccount and make small changes with the class spesific attributes, instead of rewriting all of this code. Inheritance provides a balance between thease two options, with one parent class that holds the attributes and methods tha tare common betwen the new classes, in turn each child class will only contain what is qnique to that class. assuming that the bank account class is complete, with just the inclusion of the parent class in parenthesis both the clecking account and retirement account classes have al the attributes and functionality of the parent class, now all we would need to do is add the diffrences while maningtaining what we need from the parent class
+
+        ex how to inherit class attributes and methods
+
+            class CheckingAccount(BankAccount):
+
+            class RetirementAccount(BankAccount):
+
+
+        all we need to do is use the new class name and put the old class in () for it to inherit 
+
+
+Super!!
+
+    this is a closer look or rather more speisfic look at what we want our retirmentaccount class to do diffrently than its parent class. 
+
+        class RetirementAccount(BankAccount):
+            def __init__(self, int_rate, is_roth, balance=0):
+                self.int_rate = int_rate
+                self.balance = balance
+                self.is_roth = is_roth  
+
+        class BankAccount:
+            def __init__(self, int_rate, balance=0):
+                self.int_rate = int_rate
+                self.balance = balance
+
+
+            The retirement acount has the intrest rare, and balance from its parent class, but it has also has a is_roth attribute, other than than that its the same. 
+
+    To indicate we are trying to use the parents methods, we call on it with the keyword Super, fromthere we can call on any of the parents methods
+
+        class RetirementAccount(BankAccount):
+            def __init__(self, int_rate, is_roth, balance=0):
+                super().__init__(int_rate, balance)	
+                self.is_roth = is_roth	
+
+        class BankAccount:
+            def __init__(self, int_rate, balance=0):
+                self.int_rate = int_rate
+                self.balance = balance
+
+
+            With the super, we are usuing the information from the bankaccount class, by passing in the int_rate, balance, in the arguments, the top line where bank account is passed into the argument is what allows us to do this. all we need to add in this case is the is_roth attribute, since it is unique to the retirement account class
+
+
+        Lets say we wanted to add some new logic to the withdrawl method, as seen below
+
+            class RetirementAccount(BankAccount):
+                def withdraw(self, amount, is_early):
+                    if is_early:
+                        amount = amount * 1.10
+                    if (self.balance - amount) > 0:
+                        self.balance -= amount
+                    else:
+                        print("INSUFFICIENT FUNDS")
+                    return self
+
+            class BankAccount:
+                def withdraw(self, amount):
+                    if (self.balance - amount) > 0:
+                        self.balance -= amount
+                    else:
+                        print("INSUFFICIENT FUNDS")
+                    return self
+                
+                At the moment this code is repedative, its very wet, and we dont like wet we like it dry, so lets call on the parent class and its already built methods to do it for us!!
+
+
+            class RetirementAccount(BankAccount):
+                def withdraw(self, amount, is_early):
+                    if is_early:
+                        amount = amount * 1.10
+                    super().withdraw(amount)
+                    return self
+                
+
+            class BankAccount:
+                def withdraw(self, amount):
+                    if (self.balance - amount) > 0:
+                        self.balance -= amount
+                    else:
+                        print("INSUFFICIENT FUNDS")
+                    return self
+
+        Here what we are doing is usuing the super function() followed by the dot notation for the .withdraw function of the parent class, and bamn it works. 
+
+
+
+Modules & Packages!!
+
+    modules are simply python pfiles with the .py extention, which implementa set of functions, modules are imported usuing the imort comand. the firs ttime a module is loaded into a running python script it is initialized by executing the code in the module once, if another module in your code imports the same module again it will not be loaded twice but only once, so local variables inside the module act as a singleton -weird name to say they are only initialized once, 
+
+    now an example, say we want to import the urllib.request module, which enables us to request data from URLS we an simply import the module:
+
+        # import the library
+        import urllib.request
+        response = urllib.request.urlopen("http://www.codingdojo.com")
+        html = response.read()
+        print(html)
+
+
+    notice that we used the urllib.request as a variable to refer to our module and then we called the moethods usuing .notation, 
+
+
+Creating Your Own Modules
+
+    writing python modules is very simple. to start we first create a new file with .py with the module name in the same directory as the file that will import the module. then we import usuing the import command and the python file name. without the .py extention, important note
+
+
+    for example lets make some quick math code in python. called arithmetic.py
+
+        def add(x, y):
+        return x + y
+        def multiply(x, y):
+        return x * y
+        def subtract(x, y):
+        return x - y
+
+    now we make another file in the same directory(file folder) as .arithmetic.py called calculations.py, we can import the arithmetic module into caluclations.py and run the functions by doing thiss!!!
+
+
+        import arithmetic
+        print(arithmetic.add(5, 8))
+        print(arithmetic.subtract(10, 5))
+        print(arithmetic.multiply(12, 6))
+
+    
+    so what we did here was import the file (module) arithmetic, and use a print statment followed by .notation for the function/method inside of the imported file. so filename.method(paramaters)
+
+
+Standard (built-in) Modules
+
+    Python comes with a huge library of standard modules. some modules are built into the interpreter, thease provide acces s to operations tha tare not part of the core langauge but are still built in, either for effiecency or to provide access to operation system primatives such as system calls. the set of such modules is a configuration option which also depends on the underlying platform. soooo that means the winreg module (whateever that is) is only provided on windows system. there is one module that is built into every python interpreter, it meanss, system-specific parameters and functions
+
+
+Exploring built-in modules
+
+    Two very important functions come in handy when exploring modules in python the Dir and Help functions, we can look for which functions are implemented in each module by usuing the dir function
+
+Packages!!
+
+    A module is a single file (or files) that are imported under one important, a package is a collection of modules in directories that give a package higherarchy
+
+    Examples of packages
+
+        from my_package.subdirectory import my_functions
+
+
+    Packages are namespaces which contain multiple packages and modules themselves, they are simple directorys but with a twist. 
+
+
+        sample_project
+            |_____ python_file.py
+            |_____ my_modules
+                    |_____ __init__.py
+                    |_____ test_module.py
+                    |_____ another_module.py
+                    |_____ third_module.py
+
+    In the above example the package name is my modules, and what were usuing inside the directory to access it is the example above, however the example dosent really relate to this exazct bit. but we will see how soon
+
+
+Writing Packages
+
+    If we create adirectory called my_modules which marks the package name, we can the ncreate a module inside that package called test module (so make a folder called my_modules, and create a test file called test_module) to usee it we have two options, once we can important it with the import function and .notation
+
+        import my_modules.test_module
+
+
+    Or we can use the from function and the import function together. personally i think i like the .notation better because it looks well more like python code to me. 
+
+        from my_modules import test_module
+
+
+__Init__.py File
+
+    so in the above example we had a file with that name, or a module rather with this name, this file was required for all of the packages in python 2.7 but it would often be empty, probabley a place holder for a function telling the program to use the information like classes/modules because that seems to be what the packages and modules are, packages are classes, modules are subsets of the class, be it functions, instances etc, 
+
+    In python 3.3+ we only need this file if we need to customise what omdules are avaibile to anyone attempting to import the package, for example if we dident want anotehr_module or third_module (see example above of package structure) to accessible for importing we would override the __all_variable like so 
+
+        __all__ = ["test_module"]
+
+    meaning that only the test_module would be avaible for importing. 
+
+
+Overriding & Polymorphism
+
+    Overriding
+        One of of the other cool features of OOP is overriding, sometimes the issue with implicit inheritance is that you want the child to behave completely diffrent than the parent, in thease cases yo uwant to override the function, effectivley replacing the functionality, to do this just define a function with the same name in the child class, an example follows
+
+            class Parent:
+                def method_a(self):
+                    print("invoking PARENT method_a!")
+            class Child(Parent):
+                def method_a(self):
+                    print("invoking CHILD method_a!")
+            dad = Parent()
+            son = Child()
+            dad.method_a()
+            son.method_a() #notice this overrides the Parent method!
+
+        invoking PARENT method_a!
+        invoking CHILD method_a!
+
+
+
+    in this example the parent and child both have a method called method_a, but they have diffrent print statments, the classes are equal to child and parent, when called they equal diffrent outcomes because the child method has overwritten the parent method of method_a the child method will override the parent method because it has been overwritten, and thus defines its own vision.
+
+
+Polymorphism
+
+    Polymorphic behavure alows us to specify common methods in an "abstract" level and implement them in particualr instances, it is the process of usuing an operator or function in diffrent ways for diffrent data imput. 
+
+        # We'll use the Person class to demonstrate polymorphism
+        # in which multiple classes inherit from the same class but behave in different ways
+        class Person:
+        def pay_bill(self):
+            raise NotImplementedError
+        # Millionaire inherits from Person
+        class Millionaire(Person):
+        def pay_bill(self):
+            print("Here you go! Keep the change!")
+        # Grad Student also inherits from the Person class
+        class GradStudent(Person):
+        def pay_bill(self):
+            print("Can I owe you ten bucks or do the dishes?")
+
+    Based on this example, the millionarie and grad student are both persons, however when it comes to paying a bill they act quite diffrentely, the patter is usefull when you know that each subclass of a parent class must define a specifi behavior in a method and you dont want to define a default behavior in the parent class, hense the pur virtual implementation of the parent, ie its just there so that way the two other sub classes can have the same methods and attributes but dosent actually do anything. 
+
+
+Inputs and Outputs
+
+    What all coding languages have in common is the ability to interpret some code and give a result (output) the result can be a variety of diffrent results, including print statments, data types, html/javascript to render on a browser, etc, many times we write our code to work with a certan set of data, but the data could be diffrent in diffrent sitautinos, in this case we can set up to pass an input into our codd, so the interpreter can work with that data, in the days to come we will learn how we can pass inputs to functions by setting u pa paramater and passing an argument at that function call, and how a user REquest will include an input from the client that is pasesd to the server, but for now ew will look into the input() function in python which will allow us to interact with the Bash window. 
+    
+
+        favorite_color = input('What is your favorite color? ') # input takes a prompt, which needs to be a string
+        print(f'Your favorite color is: {favorite_color}') #output, prints the color given to the console
+
+    so the input takes a prompt wich must be a string, the print statment prints the color given to the console 
+
+    If we put this line of code into python and run the file in the terminal/shell you will see a prompt that appears and the () print statment will not be executed until you ente ra name, this program is expecting an input and cannot move forward until its provided, theres a demo that im going to watch and some demo code im not going todo. because im behind but i will watch the video
+
+
+Reflection Questions, What are the three take aways that stick out in my brain from OOP?
+
+classes are super important and usefull, methods are fancy names for functions inside of a class, instances are objects, and thats easier for me to understand than calling them instances, for me it says that this is the actuall thing being created and used, 
+
+what strategies did you ues to complete the projects? im not even finisehd yet lol, team work and asking for help 
+
+
+
+
+
+

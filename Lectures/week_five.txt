@@ -1,0 +1,15 @@
+Lecture Office Hours 10/25
+
+    new ta has no filter, nathan is a huge nerd and we bonded over that, kd is also a huge nerd, shes pretty cool, went over usuing mysql terminal, get to that in terminal by typing mysql -u root -p but eh, probabley never use it
+
+
+Lecture 10/25
+
+
+    sugestion, anytime you make any kindof major change or addition, run your app to be sure there are no bugs, your stress level with be greatley reduced the more frequently you test it. 
+
+
+
+Lecture 10/26 
+
+    
